@@ -1,15 +1,15 @@
-import { MediaTag } from "./components/mediaTag";
 import { loadingModel } from "./components/3Dmodel";
-import { projects } from "./mockData";
-import { ProjectCard } from "./components/projectCard";
 import { BlogCard } from "./components/BlogCard";
+import { MediaTag } from "./components/mediaTag";
+import { ProjectCard } from "./components/projectCard";
+import { projects } from "./mockData";
 //3D
 
 export const LandingPage = async () => {
   const app = document.querySelector("#app");
   const LandingPageWrapper = document.createElement("div");
 
-  const path = window.location.pathname;
+  // const path = window.location.pathname;
 
   const threedart = document.createElement("canvas");
   threedart.id = "canvas";
@@ -94,7 +94,7 @@ export const LandingPage = async () => {
   });
   blogSectionHeader.appendChild(blockSectionTitle);
   blogSectionHeader.appendChild(seeAllButton);
-  const blog = blockSection.appendChild(blogSectionHeader);
+  blockSection.appendChild(blogSectionHeader);
 
   const blogList = document.createElement("div");
   blogList.classList.add("project_list");
@@ -131,7 +131,7 @@ export const LandingPage = async () => {
     },
   ];
   mediaSection.appendChild(mediaSectionTitle);
-  mediaList.forEach((media, i) => {
+  mediaList.forEach((media) => {
     mediaSection.appendChild(MediaTag(media));
     console.log(MediaTag(media));
   });

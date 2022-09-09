@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { AmbientLight, LoadingManager } from "three";
+import { AmbientLight } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 export const loadingModel = () => {
@@ -15,7 +15,7 @@ export const loadingModel = () => {
   });
 
   //   Light
-  const lightAxis = new THREE.AxesHelper(3);
+  // const lightAxis = new THREE.AxesHelper(3);
   const light = new AmbientLight(0xffffff, 0.5);
   // light.add(lightAxis);
   // scene.add(lightAxis);
@@ -61,10 +61,10 @@ export const loadingModel = () => {
   });
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  const clock = new THREE.Clock();
+  // const clock = new THREE.Clock();
 
   const tick = () => {
-    const elapsedTime = clock.getElapsedTime();
+    // const elapsedTime = clock.getElapsedTime();
 
     // Update controls
     controls.update();

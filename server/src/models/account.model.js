@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const accountSchema = new mongoose.Schema(
   {
-    email: String,
+    username: String,
     password: String,
   },
   {
@@ -14,3 +14,4 @@ accountSchema.method("passwordEncrypt", function () {
   this.password = this.password + "WyvernP";
 });
 accountSchema.method("c");
+module.exports = Account;

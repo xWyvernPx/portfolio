@@ -3,9 +3,9 @@ import { BlogCard } from "./components/BlogCard";
 
 export const BlogPage = async () => {
   const app = document.querySelector("#app");
-  const LandingPageWrapper = document.createElement("div");
+  // const LandingPageWrapper = document.createElement("div");
 
-  const path = window.location.pathname;
+  // const path = window.location.pathname;
 
   const threedart = document.createElement("canvas");
   threedart.id = "canvas";
