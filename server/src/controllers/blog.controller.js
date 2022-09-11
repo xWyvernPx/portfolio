@@ -4,13 +4,14 @@ const { createBlog } = require("../service/blog.service");
 module.exports = {
   createBlog: async (req, res, next) => {
     try {
-      const { blog } = req.body;
-      // console.log(req.body);
+      const { ...blog } = req.body;
+      console.log(req.body);
       //prototype blog  : {
       // content : string ,
       // thumbnail : string ,
       // title : string
       //    }
+
       const result = await blogService.createBlog(blog);
       res.json(
         result
@@ -35,7 +36,7 @@ module.exports = {
 
       return;
     } catch (error) {
-      res.json(FailResponse(null, "Retrieved blogs failed", e));
+      res.json(FailResponse(null, "Retrieved blogs failed", error));
     }
   },
 };
