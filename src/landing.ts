@@ -90,7 +90,7 @@ export const LandingPage = async () => {
   seeAllButton.classList.add("see_all_button");
   seeAllButton.textContent = "See All";
   seeAllButton.addEventListener("click", () => {
-    window.location.href = "http://localhost:5173/blogs";
+    window.location.href = "/blogs";
   });
   blogSectionHeader.appendChild(blockSectionTitle);
   blogSectionHeader.appendChild(seeAllButton);
@@ -104,7 +104,7 @@ export const LandingPage = async () => {
   const blogs = await fetch("http://localhost:4422/blog?page=1&limit=6").then(
     (data) => data.json()
   );
-
+  console.log(blogs);
   blogs.data.forEach((blog: any) => {
     blogList.appendChild(BlogCard(blog));
   });

@@ -3,4 +3,7 @@ export default {
     // outDir: "./server/src/public/build",
     outDir: "./dist",
   },
+  server: {
+    port: 3000,
+  },
 };

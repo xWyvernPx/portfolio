@@ -1,5 +1,6 @@
 import { ModalActive } from "./Modal";
 import showdown from "showdown";
+import { BlogDetail } from "./BlogDetail";
 const converter = new showdown.Converter();
 
 export interface Blog {
@@ -7,7 +8,7 @@ export interface Blog {
   title: string;
   content: string;
   thumbnail: string;
-  createdAt: String;
+  createdAt: string;
 }
 export const BlogCard = (blog: Blog) => {
   const cardWrapper = document.createElement("div");
@@ -34,7 +35,7 @@ export const BlogCard = (blog: Blog) => {
     const contentConverted = converter.makeHtml(blog.content);
     const contentWrapper = document.createElement("div");
     contentWrapper.innerHTML = contentConverted;
-    ModalActive(contentWrapper);
+    ModalActive(BlogDetail({ ...blog, content: contentConverted }));
   });
   return cardWrapper;
 };

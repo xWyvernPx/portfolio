@@ -7,7 +7,7 @@
   "proxy": "http://localhost:4422",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build --base=./",
+    "build": "tsc && vite build --base=./ ",
     "preview": "vite preview"
   },
   "devDependencies": {
