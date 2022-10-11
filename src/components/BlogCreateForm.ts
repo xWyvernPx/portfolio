@@ -5,9 +5,8 @@ import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import { closeModalHanlder } from "./Modal";
 export const BlogCreateForm = () => {
-  const modal = document.querySelector("modal-wrapper");
+  // const modal = document.querySelector("modal-wrapper");
   const reader = new FileReader();
-  let thumbnailBase64 = "";
   const form = document.createElement("form");
   form.classList.add("form", "blog-create-form");
   const inputTitleField = document.createElement("input");
@@ -26,6 +25,7 @@ export const BlogCreateForm = () => {
   label.htmlFor = "image-selector";
   label.className = "image-selector-label";
   label.appendChild(image);
+  // let thumbnailBase64 = "";
 
   const imageSelector = document.createElement("input");
   imageSelector.id = "image-selector";
@@ -33,7 +33,7 @@ export const BlogCreateForm = () => {
   imageSelector.type = "file";
   reader.onload = (e) => {
     image.src = e?.target?.result as any;
-    thumbnailBase64 = e?.target?.result as any;
+    // thumbnailBase64 = e?.target?.result as any;
   };
   imageSelector.addEventListener("change", (e) => {
     const tg = e?.target as any;
@@ -51,12 +51,12 @@ export const BlogCreateForm = () => {
   const mde = document.createElement("textarea");
   mde.className = "mde";
   mde.id = "mde";
-  let mdevalue = "";
+  // let mdevalue = "";
   setTimeout(() => {
-    const simplemde = new SimpleMDE({
-      element: document.querySelector("#mde"),
-      autoDownloadFontAwesome: true,
-    });
+    // const simplemde = new SimpleMDE({
+    //   element: document.querySelector("#mde"),
+    //   autoDownloadFontAwesome: true,
+    // });
     form.onsubmit = async (e) => {
       e.preventDefault();
 
@@ -77,7 +77,7 @@ export const BlogCreateForm = () => {
 
       const data = {
         title: formData.get("title"),
-        content: simplemde.value(),
+        // content: simplemde.value(),
         thumbnail: res.url,
       };
       //TODO : loading

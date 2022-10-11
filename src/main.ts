@@ -1,7 +1,7 @@
 import "./style.css";
 // import * as SimpleMDE from "simplemde";
 const path = window.location.pathname;
-
+const $ = document.querySelector.bind(document);
 if (path === "/") {
   const body = document.querySelector("body");
   body?.style.setProperty("overflow-y", "hidden");
@@ -33,6 +33,10 @@ console.log(body, themeButton);
 themeButton?.appendChild(icon);
 themeButton?.addEventListener("click", () => {
   body?.classList.toggle("dark");
+  console.log($("#logo img"));
+  $("#logo img").src = body?.classList.contains("dark")
+    ? "https://ik.imagekit.io/flamefoxeswyvernp/logo-light.png?ik-sdk-version=javascript-1.4.3&updatedAt=1665500612008"
+    : "https://ik.imagekit.io/flamefoxeswyvernp/logo-dark_HSjJ_OO-h.png?ik-sdk-version=javascript-1.4.3&updatedAt=1665500660934";
   icon.className = "";
   if (body?.classList.contains("dark")) {
     icon.className = "fa-solid fa-lightbulb";
@@ -49,8 +53,8 @@ const createButton = document.querySelector(".blog-create-button");
   })
     .then((result) => result?.json())
     .then((result) => result?.data);
-
-  if (!me) {
+  const me2 = document.cookie.includes("ssid");
+  if (!me || !me2) {
     createButton.classList.add("disable");
   }
 })();

@@ -39,7 +39,7 @@ export const LandingPage = async () => {
   const avatarImg = document.createElement("img");
   avatarWrapper.appendChild(avatarImg);
   avatarImg.src =
-    "https://scontent.fsgn5-15.fna.fbcdn.net/v/t1.6435-9/167680325_2940176386304476_5438954694978316709_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=m9tfUo_9KgwAX_US08P&tn=Z06tV1_Agc9ZWTHY&_nc_ht=scontent.fsgn5-15.fna&oh=00_AT87fspfRGKywAOu786SLIYZ_OEcLbzwR5LdNp6UPm1ong&oe=6324D497";
+    "https://ik.imagekit.io/flamefoxeswyvernp/65C9A4B1-88BC-4EDE-8320-D7272DC1E202_cDN5k-uWN.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1663986362929";
 
   bigTitleWrapper.appendChild(contentWrapper);
   bigTitleWrapper.appendChild(avatarWrapper);
@@ -54,7 +54,7 @@ export const LandingPage = async () => {
 
   const aboutParagraph = document.createElement("p");
   aboutParagraph.textContent =
-    "Hi Im Phong- a student at FPU University with aim to become a fullstack develeper. The one who love to utilize the technology especially web to build anything that help his life as well as surroundings better.";
+    "Hi Im Phong - a student at FPU University with aim to become a better software engineer day by day as well as a specialist in Javascript. The one who love to utilize the technology, visual art especially web to build anything that assists his life as well as surroundings better.";
   aboutParagraph.classList.add("about_paragraph");
   aboutSection.appendChild(sectionTitle);
   aboutSection.appendChild(aboutParagraph);

@@ -124,6 +124,18 @@
   resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-1.83.1.tgz#7e59f4aebcf19b029afd7454164ac3aa8d47f57c"
   integrity sha512-xJi+59SEIoa3ApbIu81uivmf7Byp9zexoclMlJedBUJGm8vJOeh5PHZFa9k2a/mBnVFccMvJrWpEKbYg0jn1ew==
 
+"@types/codemirror@^5.60.5":
+  version "5.60.5"
+  resolved "https://registry.yarnpkg.com/@types/codemirror/-/codemirror-5.60.5.tgz#5b989a3b4bbe657458cf372c92b6bfda6061a2b7"
+  integrity sha512-TiECZmm8St5YxjFUp64LK0c8WU5bxMDt9YaAek1UqUb9swrSCoJhh92fWu1p3mTEqlHjhB5sY7OFBhWroJXZVg==
+  dependencies:
+    "@types/tern" "*"
+
+"@types/estree@*":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/estree/-/estree-1.0.0.tgz#5fb2e536c1ae9bf35366eed879e827fa59ca41c2"
+  integrity sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==
+
 "@types/node@^18.7.16":
   version "18.7.16"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.16.tgz#0eb3cce1e37c79619943d2fd903919fc30850601"
@@ -133,6 +145,13 @@
   version "1.11.8"
   resolved "https://registry.yarnpkg.com/@types/simplemde/-/simplemde-1.11.8.tgz#8c2d7e90b1a7d30596620ac62201afd7d2b07d00"
   integrity sha512-NF3MJ1jdP5nJB5DH2HNmGQK61mRr6Rxoe+EWboxR0XBrIS95/PgHuP+Ry6rCJ63DMMX70OKxvJ4bCP4IIvLhPg==
+
+"@types/tern@*":
+  version "0.23.4"
+  resolved "https://registry.yarnpkg.com/@types/tern/-/tern-0.23.4.tgz#03926eb13dbeaf3ae0d390caf706b2643a0127fb"
+  integrity sha512-JAUw1iXGO1qaWwEOzxTKJZ/5JxVeON9kvGZ/osgZaJImBnyjyn0cjovPsf6FNLmyGY8Vw9DoXZCMlfMkMwHRWg==
+  dependencies:
+    "@types/estree" "*"
 
 "@types/three@^0.143.1":
   version "0.143.1"
@@ -153,7 +172,7 @@ codemirror-spell-checker@*:
   dependencies:
     typo-js "*"
 
-codemirror@*:
+codemirror@*, codemirror@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-6.0.1.tgz#62b91142d45904547ee3e0e0e4c1a79158035a29"
   integrity sha512-J8j+nZ+CdWmIeFIGXEFbFPtpiYacFMDR8GlHK3IyHQJMCaVRfGx9NT+Hxivv1ckLWPvNdZqndbr/7lVhrf/Svg==
@@ -344,9 +363,9 @@ joi@^17.6.0:
     "@sideway/pinpoint" "^2.0.0"
 
 marked@*:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-4.1.0.tgz#3fc6e7485f21c1ca5d6ec4a39de820e146954796"
-  integrity sha512-+Z6KDjSPa6/723PQYyc1axYZpYYpDnECDaU6hkaf5gqBieBkMKYReL5hteF2QizhlMbgbo8umXl/clZ67+GlsA==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-4.1.1.tgz#2f709a4462abf65a283f2453dc1c42ab177d302e"
+  integrity sha512-0cNMnTcUJPxbA6uWmCmjWz4NJRe/0Xfk2NhXCUHjew9qJzFN20krFnsUe7QynwqOwa5m1fZ4UDg0ycKFVC0ccw==
 
 nanoid@^3.3.4:
   version "3.3.4"

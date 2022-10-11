@@ -187,6 +187,9 @@ canvas {
 footer {
   padding: 3rem;
 }
+#logo::before {
+  display: none;
+}
 .nav_bar {
   padding: 1rem;
   display: flex;
@@ -196,14 +199,31 @@ footer {
 .nav_bar ul {
   flex: 1 1 auto;
   display: flex;
+  align-items: center;
   gap: 1.5rem;
 }
 .nav_bar ul li a {
   color: var(--text-color);
   font-size: 1.15rem;
+  font-family: "m-plus-rounded-1c";
+  font-weight: 600;
+  width: 3rem;
+  position: relative;
 }
-.nav_bar ul li a:hover {
-  border-bottom: var(--text-color) 2px solid;
+.nav_bar ul li a::before {
+  transform: scale(0);
+  content: "";
+  position: absolute;
+  bottom : -7px;
+  width:  100%;
+  height: 2px;
+  border-radius: 50%;
+  background-color: var(--text-color);
+  transition: all 0.25s linear;
+}
+.nav_bar ul li a:hover::before {
+  /* border-bottom: var(--text-color) 2px solid; */
+  transform: scale(1)
 }
 .theme_toggle {
   flex: 0 0 auto;
@@ -311,9 +331,18 @@ footer {
 .media_wrapper:visited {
   color: var(--text-accent-color);
 }
+.project_card_wrapper p {
+  /* text-align: left; */
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
 .project_card_wrapper {
   border-radius: var(--radius);
-
+  margin-top: 20px;
   width: 100%;
   background-color: var(--text-background-color);
   box-shadow: 1px 1px 12px -7px var(--text-color);
@@ -890,11 +919,14 @@ svg.tea #steamR {
   }
   .project_list {
     --columns: 2;
-    --gap: 20px;
+    --gap: 30px;
     display: grid;
     grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
-    grid-gap: var(--gap);
-    row-gap: 30px;
+    /* grid-gap: var(--gap); */
+    /* row-gap: 30px; */
+    /* column-gap: 20px; */
+    gap: 40px;
+    
     margin: 1.5rem 0;
     margin-top: 3rem;
   }
@@ -940,4 +972,18 @@ body::-webkit-scrollbar-thumb,.modal-wrapper::-webkit-scrollbar-thumb
   .blog-detail-wrapper {
     padding : 4rem 0rem;
   }
+}
+
+#logo {
+  width: 10rem;
+  display: block;
+  height: 3rem;
+}
+#logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#logo:hover {
+  border-bottom: none
 }

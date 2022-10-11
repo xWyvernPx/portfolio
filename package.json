@@ -19,6 +19,8 @@
   },
   "dependencies": {
     "@tabler/icons": "^1.83.1",
+    "@types/codemirror": "^5.60.5",
+    "codemirror": "^6.0.1",
     "imagekit-javascript": "^1.5.2",
     "joi": "^17.6.0",
     "showdown": "^2.1.0",
