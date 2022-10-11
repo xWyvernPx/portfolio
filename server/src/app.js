@@ -13,15 +13,15 @@ app.use(
 );
 Router(app);
 app.use(express.static(path.join(__dirname, "/public/build")));
-app.get("*", (req, res, next) => {
-  const fileDirectory = path.resolve(__dirname, ".", "public/build");
+// app.get("*", (req, res, next) => {
+//   const fileDirectory = path.resolve(__dirname, ".", "public/build");
 
-  res.sendFile("index.html", { root: fileDirectory }, (err) => {
-    res.end();
+//   res.sendFile("index.html", { root: fileDirectory }, (err) => {
+//     res.end();
 
-    if (err) throw err;
-  });
-  // res.sendFile("index.html", { root: __dirname });
-});
+//     if (err) throw err;
+//   });
+//   // res.sendFile("index.html", { root: __dirname });
+// });
 
 module.exports = app;

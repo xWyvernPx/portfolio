@@ -3,6 +3,8 @@ import "./style.css";
 const path = window.location.pathname;
 
 if (path === "/") {
+  const body = document.querySelector("body");
+  body?.style.setProperty("overflow-y", "hidden");
   const primaryLoader = document.querySelector(".primary-loader");
   const progressLoader = document.querySelector(".progress-loader");
   primaryLoader.classList.add("active");
@@ -10,6 +12,7 @@ if (path === "/") {
   setTimeout(() => {
     primaryLoader.classList.remove("active");
     progressLoader.classList.remove("active");
+    body?.style.setProperty("overflow-y", "auto");
   }, 2500);
 }
 import { LandingPage } from "./landing";
@@ -39,6 +42,19 @@ themeButton?.addEventListener("click", () => {
 });
 
 const createButton = document.querySelector(".blog-create-button");
+(async () => {
+  const me = await fetch("http://localhost:4422/account/auth", {
+    method: "GET",
+    credentials: "include",
+  })
+    .then((result) => result?.json())
+    .then((result) => result?.data);
+
+  if (!me) {
+    createButton.classList.add("disable");
+  }
+})();
+
 createButton?.addEventListener("click", () => {
   const credential = sessionStorage.getItem("access_token");
   // TODO : API get me

@@ -123,6 +123,7 @@ h1 {
   width: 768px;
   flex: 1 1 auto;
   /* position: relative; */
+  
 }
 
 button {
@@ -220,7 +221,7 @@ footer {
   width: 100%;
   padding: 0.75rem 3rem;
   font-size: 1.2rem;
-  font-weight: 500;
+  font-weight: 600;
   font-family: m-plus-rounded-1c, sans-serif;
   font-style: normal;
   display: inline-block;
@@ -253,8 +254,8 @@ footer {
   font-weight: 500;
 }
 .avatar_wrapper {
-  flex: 0 0 auto;
-  width: 8rem;
+  flex: 0 0 8rem;
+
   aspect-ratio: 1;
   border-radius: 50%;
   box-shadow: 0px 0px 10px 0px rgba(226, 220, 220, 0.4),
@@ -315,7 +316,7 @@ footer {
 
   width: 100%;
   background-color: var(--text-background-color);
-  box-shadow: 2px 2px 7px 0px var(--text-background-color);
+  box-shadow: 1px 1px 12px -7px var(--text-color);
   cursor: pointer;
   padding-bottom: 2rem;
   position: relative;
@@ -376,10 +377,17 @@ body .project_button_wrapper a {
 
   width: 100%;
   background-color: var(--text-background-color);
-  box-shadow: 2px 2px 7px 0px var(--text-background-color);
+  box-shadow: 1px 1px 12px -7px var(--text-color);
+
   cursor: pointer;
   padding-bottom: 2rem;
   position: relative;
+}
+.blog-card-wrapper:hover {
+  box-shadow: 1px 1px 19px -7px var(--text-secondary-color);
+}
+.project_card_wrapper:hover {
+  box-shadow: 1px 1px 19px -7px var(--text-secondary-color);
 }
 .blog-card-thumbnail-wrapper {
   aspect-ratio: 16/9;
@@ -485,6 +493,10 @@ body .project_button_wrapper a {
   aspect-ratio: 1;
   padding: 0;
   color : var(--background-color);
+  display  : block;
+}
+.blog-create-button.disable {
+  display: none;
 }
 .form {
   width: 100%;
@@ -793,5 +805,139 @@ svg.tea #steamR {
   to {
     transform: scale(2);
     opacity: 0;
+  }
+}
+
+.blog-detail-wrapper {
+  padding : 4rem 2.5rem;
+}
+.blog-detail-thumbnail {
+  width: 100%;
+  aspect-ratio: 16/9;
+  margin-bottom:  3rem;
+}
+.blog-detail-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.blog-detail-title {
+  font-size: 3rem;
+  font-weight: 600;
+}
+.blog-detail-subinfo {
+  display : flex;
+  gap : 1rem;
+  font-style: italic;
+  opacity: .7;
+  margin-left: .5rem;
+  margin-bottom : 2rem;
+}
+.blog-detail-content{
+  line-height: 1.5;
+  letter-spacing: 1.3px;
+  
+}
+.blog-detail-content::first-letter {
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 1023.98px) {
+  :root {
+    font-size: 14px;
+  }
+
+}
+
+@media screen and (max-width: 767.98px) {
+    :root {
+      font-size: 12px;
+    }
+    #app {
+      width : 500px;
+    }
+    .avatar_wrapper {
+      flex: 0 0 5rem;
+    }
+    .nav_bar {
+      padding: 1rem;
+      display: flex;
+      max-width: 500px;
+      min-width: 500px;
+    }
+}
+@media screen and (max-width: 767.98px) {
+    :root {
+      font-size: 12px;
+    }
+    #app {
+      width : 500px;
+    }
+    .blog-detail-wrapper {
+      padding : 4rem 2.1rem;
+    }
+}
+@media screen and (max-width: 567.98px) {
+  :root {
+    font-size:  11px;
+    
+  }
+  #app {
+    width : 330px;
+  }
+  .blog-detail-wrapper {
+    padding : 4rem 1rem;
+  }
+  .project_list {
+    --columns: 2;
+    --gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+    grid-gap: var(--gap);
+    row-gap: 30px;
+    margin: 1.5rem 0;
+    margin-top: 3rem;
+  }
+  .intro_content span:first-child {
+    font-size: 2.5rem;
+    font-weight: 600;
+  }
+  .intro_content span:nth-child(2) {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+  .nav_bar {
+    padding: 1rem;
+    display: flex;
+    max-width: 330px;
+    min-width: 330px;
+  }
+  .about_paragraph {
+    font-size : 1.4rem;
+  }
+}
+
+body::-webkit-scrollbar-track,.modal-wrapper::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: var(--background-color);
+}
+
+body::-webkit-scrollbar,.modal-wrapper::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: var(--background-color);
+}
+
+body::-webkit-scrollbar-thumb,.modal-wrapper::-webkit-scrollbar-thumb
+{
+	background-color: var(--text-color);
+  border: 1px solid var(--background-color);
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 374.98px) {
+  .blog-detail-wrapper {
+    padding : 4rem 0rem;
   }
 }
