@@ -101,9 +101,9 @@ export const LandingPage = async () => {
 
   blockSection.appendChild(blogList);
   //fetch blogs
-  const blogs = await fetch("http://localhost:4422/blog?page=1&limit=6").then(
-    (data) => data.json()
-  );
+  const blogs = await fetch(
+    "https://wyvernp-portfolio.azurewebsites.net/blog?page=1&limit=6"
+  ).then((data) => data.json());
   console.log(blogs);
   blogs.data.forEach((blog: any) => {
     blogList.appendChild(BlogCard(blog));

@@ -55,7 +55,10 @@ export const BlogPage = async () => {
   blogList.className = "project_list";
 
   blogs = await fetch(
-    "http://localhost:4422/blog?limit=" + limit + "&page=" + page
+    "https://wyvernp-portfolio.azurewebsites.net?limit=" +
+      limit +
+      "&page=" +
+      page
   )
     .then((data) => data.json())
     .then((result) => result.data);
@@ -70,7 +73,10 @@ export const BlogPage = async () => {
     page++;
     blogs.push(
       ...(await fetch(
-        "http://localhost:4422/blog?limit=" + limit + "&page=" + page
+        "https://wyvernp-portfolio.azurewebsites.net?limit=" +
+          limit +
+          "&page=" +
+          page
       )
         .then((data) => data.json())
         .then((result) => result.data))

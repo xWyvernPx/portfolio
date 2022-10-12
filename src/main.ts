@@ -47,10 +47,13 @@ themeButton?.addEventListener("click", () => {
 
 const createButton = document.querySelector(".blog-create-button");
 (async () => {
-  const me = await fetch("http://localhost:4422/account/auth", {
-    method: "GET",
-    credentials: "include",
-  })
+  const me = await fetch(
+    "https://wyvernp-portfolio.azurewebsites.net/account/auth",
+    {
+      method: "GET",
+      credentials: "include",
+    }
+  )
     .then((result) => result?.json())
     .then((result) => result?.data);
   const me2 = document.cookie.includes("ssid");
