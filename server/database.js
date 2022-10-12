@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
 
 mongoose
-  .connect("mongodb://localhost:27017", { dbName: "portfolio" })
+  .connect(
+    "mongodb+srv://sa:WyvernP2506@portfolio.8r13bx1.mongodb.net/portfolio?retryWrites=true&w=majority",
+    { dbName: "portfolio" }
+  )
   .then(() => {
     console.log(" db connected successfully");
   })
