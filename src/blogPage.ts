@@ -1,12 +1,14 @@
+import { BlogApi } from "./api/blogs.api";
+import notion from "./api/notionClient";
 import { loadingModel } from "./components/3Dmodel";
 import { BlogCard } from "./components/BlogCard";
-
-export const BlogPage = async () => {
+import { $, $$, _create } from "./utils/DOM";
+const BlogPage = async () => {
   const app = document.querySelector("#app");
   // const LandingPageWrapper = document.createElement("div");
 
   // const path = window.location.pathname;
-
+  app.innerHTML = "";
   const threedart = document.createElement("canvas");
   threedart.id = "canvas";
   threedart.classList.add("canvas");
@@ -42,7 +44,8 @@ export const BlogPage = async () => {
   app?.appendChild(bigTitleWrapper);
 
   let page = 1;
-  const limit = 6;
+  const limit = 12;
+  let next_cursor = undefined;
   let blogs: any[] = [];
 
   const PaginationWrapper = document.createElement("div");
@@ -54,14 +57,22 @@ export const BlogPage = async () => {
   const blogList = document.createElement("div");
   blogList.className = "project_list";
 
-  blogs = await fetch(
-    "https://wyvernp-portfolio.azurewebsites.net?limit=" +
-      limit +
-      "&page=" +
-      page
-  )
-    .then((data) => data.json())
-    .then((result) => result.data);
+  // try {
+  blogs = await BlogApi.getNotionPages({
+    pagination: {
+      limit,
+      next_cursor,
+    },
+  }).then((result) => {
+    if (result.status === "SUCCESS") {
+      next_cursor = result.data.next_cursor;
+      console.log("RESULT FETCHED", result);
+      return result.data.results;
+    }
+  });
+  // } catch (error) {
+  //   blogs = [];
+  // }
   console.log(blogs);
   renderBloglist(blogList, blogs, () => {});
   loadMoreButton.textContent = "Load more";
@@ -72,14 +83,18 @@ export const BlogPage = async () => {
   const loadmoreHandler = async () => {
     page++;
     blogs.push(
-      ...(await fetch(
-        "https://wyvernp-portfolio.azurewebsites.net?limit=" +
-          limit +
-          "&page=" +
-          page
-      )
-        .then((data) => data.json())
-        .then((result) => result.data))
+      ...(await BlogApi.getNotionPages({
+        pagination: {
+          limit,
+          next_cursor,
+        },
+      }).then((result) => {
+        if (result.status === "SUCCESS") {
+          next_cursor = result.data.next_cursor;
+          console.log("RESULT FETCHED", result);
+          return result.data.results;
+        }
+      }))
     );
     renderBloglist(blogList, blogs);
   };
@@ -97,3 +112,12 @@ const renderBloglist = (
     toggleLoadmore?.();
   }
 };
+
+const getBlogs = async () => {
+  const blogs = await notion.databases.list({
+    page_size: 10,
+  });
+  console.log(blogs);
+};
+
+export default BlogPage;

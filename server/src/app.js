@@ -3,6 +3,7 @@ const cors = require("cors");
 const app = express();
 const path = require("path");
 const Router = require("./routes/index.route");
+require("dotenv").config();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(
@@ -11,6 +12,7 @@ app.use(
     credentials: true,
   })
 );
+
 Router(app);
 app.use(express.static(path.join(__dirname, "/public/build")));
 // app.get("*", (req, res, next) => {

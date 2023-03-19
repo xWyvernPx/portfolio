@@ -1,4 +1,8 @@
 import "./style.css";
+// const LandingPage = await import("./landing");
+// const BlogPage = await import("./blogPage");
+import LandingPage from "./landing";
+import BlogPage from "./blogPage";
 // import * as SimpleMDE from "simplemde";
 const path = window.location.pathname;
 const $ = document.querySelector.bind(document);
@@ -15,8 +19,6 @@ if (path === "/") {
     body?.style.setProperty("overflow-y", "auto");
   }, 2500);
 }
-import { LandingPage } from "./landing";
-import { BlogPage } from "./blogPage";
 
 // import {} from "./";
 // import * as SimpleMDE from "simplemde";
@@ -62,7 +64,7 @@ const createButton = document.querySelector(".blog-create-button");
   }
 })();
 
-createButton?.addEventListener("click", () => {
+createButton?.addEventListener("click", async () => {
   const credential = sessionStorage.getItem("access_token");
   // TODO : API get me
   if (credential) {
@@ -72,16 +74,48 @@ createButton?.addEventListener("click", () => {
   }
 });
 
-// body?.addEventListener("load")
-switch (path) {
-  case "/":
-    LandingPage();
-    break;
-  case "/blogs":
-    BlogPage();
-    break;
+// switch (path) {
+//   case "/":
+//     LandingPage();
+//     break;
+//   case "/blogs":
+//     BlogPage();
+//     break;
+// }
+const routes = {
+  "/": LandingPage,
+  "/blogs": BlogPage,
+};
+
+// Define the functions for each route
+function home() {
+  console.log("You are on the home page");
 }
 
-modalInit();
+function about() {
+  console.log("You are on the about page");
+}
 
-// const simplemde = new SimpleMDE();
+function contact() {
+  console.log("You are on the contact page");
+}
+
+// Listen for changes to the URL
+window.addEventListener("popstate", () => {
+  // Get the current URL
+  const url = window.location.pathname;
+
+  // Call the corresponding function for the current route
+  routes[url]();
+});
+window.onload = () => {
+  navigateTo(path);
+};
+// Navigate to a new URL and push it to the browser's history
+export function navigateTo(url) {
+  window.history.pushState({}, "", url);
+  routes[url]();
+}
+
+// Call the navigateTo function with the desired URL
+modalInit();

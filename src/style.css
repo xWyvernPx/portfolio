@@ -313,6 +313,7 @@ footer {
   margin-top: 3rem;
 }
 .media_wrapper {
+  
   display: flex;
   gap: 2rem;
   font-size: 1.35rem;
@@ -321,6 +322,9 @@ footer {
   margin: 1rem 0;
   width: fit-content;
 }
+/* .media_wrapper:hover {
+  color: var(--text-accent-color);
+} */
 
 .media_wrapper span {
   transition: all 0.25s linear;

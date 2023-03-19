@@ -2,7 +2,7 @@ import { ModalActive } from "./Modal";
 import showdown from "showdown";
 import { BlogDetail } from "./BlogDetail";
 const converter = new showdown.Converter();
-
+import { _create } from "../utils/DOM";
 export interface Blog {
   _id: string;
   title: string;
@@ -10,30 +10,35 @@ export interface Blog {
   thumbnail: string;
   createdAt: string;
 }
-export const BlogCard = (blog: Blog) => {
-  const cardWrapper = document.createElement("div");
-  cardWrapper.className = "blog-card-wrapper";
+export const BlogCard = (blog: any) => {
+  console.log(blog);
 
-  const thumnbailWrapper = document.createElement("div");
-  const thumbnail = document.createElement("img");
-  thumnbailWrapper.className = "blog-card-thumbnail-wrapper";
+  const cardWrapper = _create("div", {
+    class: "blog-card-wrapper",
+  });
+
+  const thumnbailWrapper = _create("div", {
+    class: "blog-card-thumbnail-wrapper",
+  });
+  const thumbnail = _create("img", {
+    src: blog.cover || "https://source.unsplash.com/random",
+  });
   thumnbailWrapper.appendChild(thumbnail);
-  thumbnail.src = blog.thumbnail || "https://source.unsplash.com/random";
   cardWrapper.appendChild(thumnbailWrapper);
 
-  const blogTitle = document.createElement("h3");
+  const blogTitle = _create("h3");
   blogTitle.className = "blog-card-title";
-  blogTitle.textContent = blog.title;
+  blogTitle.textContent = blog.properties.Name.title?.[0]?.plain_text;
   cardWrapper.appendChild(blogTitle);
 
-  const blogContent = document.createElement("p");
+  const blogContent = _create("p");
   blogContent.className = "blog-card-content";
   blogContent.textContent = blog.content;
 
   cardWrapper.appendChild(blogContent);
   cardWrapper.addEventListener("click", () => {
     const contentConverted = converter.makeHtml(blog.content);
-    const contentWrapper = document.createElement("div");
+    const contentWrapper = _create("div");
     contentWrapper.innerHTML = contentConverted;
     ModalActive(BlogDetail({ ...blog, content: contentConverted }));
   });

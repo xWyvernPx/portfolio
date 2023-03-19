@@ -3,40 +3,45 @@ import { BlogCard } from "./components/BlogCard";
 import { MediaTag } from "./components/mediaTag";
 import { ProjectCard } from "./components/projectCard";
 import { projects } from "./mockData";
+import staticContent from "./common.json";
 //3D
-
-export const LandingPage = async () => {
-  const app = document.querySelector("#app");
-  const LandingPageWrapper = document.createElement("div");
+import { $, $$, _create } from "./utils/DOM";
+import { BlogApi } from "./api/blogs.api";
+import { navigateTo } from "./main";
+const LandingPage: () => void = async () => {
+  const app = $("#app");
+  const LandingPageWrapper = _create("div");
 
   // const path = window.location.pathname;
 
-  const threedart = document.createElement("canvas");
-  threedart.id = "canvas";
-  threedart.classList.add("canvas");
+  const threedart = _create("canvas", { id: "canvas", class: "canvas" });
   app?.appendChild(threedart);
   loadingModel();
-  const littleTitle = document.createElement("span");
-  littleTitle.classList.add("hello_label");
-  littleTitle.textContent = "Hello, I'm Phong - a web developer ";
-  app?.appendChild(littleTitle);
 
+  const littleTitle = _create(
+    "span",
+    { class: "hello_label" },
+    { textContent: staticContent.hero.hero_welcome }
+  );
+
+  // littleTitle.textContent = "Hello, I'm Phong - a web developer ";
+  app?.appendChild(littleTitle);
   //Big title
-  const bigTitleWrapper = document.createElement("div");
+  const bigTitleWrapper = _create("div");
   bigTitleWrapper.classList.add("block_wrapper");
-  const contentWrapper = document.createElement("div");
+  const contentWrapper = _create("div");
   contentWrapper.classList.add("intro_content");
-  const nameTitle = document.createElement("span");
+  const nameTitle = _create("span");
   nameTitle.textContent = "Le Thanh Phong";
   contentWrapper.appendChild(nameTitle);
-  const jobTitle = document.createElement("span");
+  const jobTitle = _create("span");
   jobTitle.textContent = "Digital Nomad (Web Developer)";
   contentWrapper.appendChild(jobTitle);
 
   //avatar
-  const avatarWrapper = document.createElement("div");
+  const avatarWrapper = _create("div");
   avatarWrapper.classList.add("avatar_wrapper");
-  const avatarImg = document.createElement("img");
+  const avatarImg = _create("img") as HTMLImageElement;
   avatarWrapper.appendChild(avatarImg);
   avatarImg.src =
     "https://ik.imagekit.io/flamefoxeswyvernp/65C9A4B1-88BC-4EDE-8320-D7272DC1E202_cDN5k-uWN.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1663986362929";
@@ -46,29 +51,33 @@ export const LandingPage = async () => {
   app?.appendChild(bigTitleWrapper);
 
   //about section
-  const aboutSection = document.createElement("section");
+  const aboutSection = _create("section");
 
-  const sectionTitle = document.createElement("span");
-  sectionTitle.classList.add("section_title");
+  const sectionTitle = _create(
+    "span",
+    { class: "section_title" },
+    { textContent: "About me" }
+  );
+
   sectionTitle.textContent = "About me";
-
-  const aboutParagraph = document.createElement("p");
-  aboutParagraph.textContent =
-    "Hi Im Phong - a student at FPU University with aim to become a better software engineer day by day as well as a specialist in Javascript. The one who love to utilize the technology, visual art especially web to build anything that assists his life as well as surroundings better.";
-  aboutParagraph.classList.add("about_paragraph");
+  const aboutParagraph = _create(
+    "p",
+    { class: "about_paragraph" },
+    { textContent: staticContent.common.description }
+  );
   aboutSection.appendChild(sectionTitle);
   aboutSection.appendChild(aboutParagraph);
   app?.appendChild(aboutSection);
 
   // Project section
-  const projectSection = document.createElement("section");
+  const projectSection = _create("section");
   projectSection.classList.add("section");
   projectSection.id = "project";
-  const projectSectionTitle = document.createElement("span");
+  const projectSectionTitle = _create("span");
   projectSectionTitle.classList.add("section_title");
   projectSectionTitle.textContent = "Project";
   projectSection.appendChild(projectSectionTitle);
-  const projectList = document.createElement("div");
+  const projectList = _create("div");
   projectList.classList.add("project_list");
   projects.forEach((project) => {
     projectList.appendChild(ProjectCard(project));
@@ -77,43 +86,50 @@ export const LandingPage = async () => {
   app?.appendChild(projectSection);
 
   //Blog  section
-  const blockSection = document.createElement("section");
+  const blockSection = _create("section");
   blockSection.classList.add("section");
   blockSection.style.paddingTop = "2rem";
   blockSection.id = "blog";
-  const blockSectionTitle = document.createElement("span");
+  const blockSectionTitle = _create("span");
   blockSectionTitle.classList.add("section_title");
   blockSectionTitle.textContent = "Blog";
-  const blogSectionHeader = document.createElement("div");
+  const blogSectionHeader = _create("div");
   blogSectionHeader.classList.add("section_header");
-  const seeAllButton = document.createElement("button");
+  const seeAllButton = _create("button");
   seeAllButton.classList.add("see_all_button");
   seeAllButton.textContent = "See All";
   seeAllButton.addEventListener("click", () => {
-    window.location.href = "/blogs";
+    // window.location.pathname = "/blogs";
+    navigateTo("/blogs");
   });
   blogSectionHeader.appendChild(blockSectionTitle);
   blogSectionHeader.appendChild(seeAllButton);
   blockSection.appendChild(blogSectionHeader);
 
-  const blogList = document.createElement("div");
+  const blogList = _create("div");
   blogList.classList.add("project_list");
 
   blockSection.appendChild(blogList);
   //fetch blogs
-  const blogs = await fetch(
-    "https://wyvernp-portfolio.azurewebsites.net/blog?page=1&limit=6"
-  ).then((data) => data.json());
+  // const blogs = await fetch(
+  //   "https://wyvernp-portfolio.azurewebsites.net/blog?page=1&limit=6"
+  // ).then((data) => data.json());
+  const blogs = await BlogApi.getAll({
+    pagination: {
+      page: 1,
+      limit: 6,
+    },
+  });
   console.log(blogs);
-  blogs.data.forEach((blog: any) => {
+  blogs?.forEach((blog: any) => {
     blogList.appendChild(BlogCard(blog));
   });
   app?.appendChild(blockSection);
   //Social Media section
-  const mediaSection = document.createElement("section");
+  const mediaSection = _create("section");
   mediaSection.classList.add("section");
 
-  const mediaSectionTitle = document.createElement("span");
+  const mediaSectionTitle = _create("span");
   mediaSectionTitle.classList.add("section_title");
   mediaSectionTitle.textContent = "Media";
   const mediaList = [
@@ -138,3 +154,4 @@ export const LandingPage = async () => {
   app?.appendChild(mediaSection);
   return LandingPageWrapper;
 };
+export default LandingPage;

@@ -1,0 +1,10 @@
+{
+    "hero" : {
+        "hero_welcome": "Hello, I'm Phong - a web developer and a codeholic :)"
+    },
+    "common" : {
+        "name" :  "Le Thanh Phong",
+        "title" : "Digital Nomad (Web Developer)",
+        "description" : "Hi Im Phong - a student at FPU University with aim to become a better software engineer day by day as well as a specialist in Javascript. The one who love to utilize the technology, visual art especially web to build anything that assists his life as well as surroundings better."
+    }
+}
