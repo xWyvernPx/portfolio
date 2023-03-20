@@ -26,26 +26,23 @@ const LandingPage: () => void = async () => {
 
   // littleTitle.textContent = "Hello, I'm Phong - a web developer ";
   app?.appendChild(littleTitle);
-  //Big title
-  const bigTitleWrapper = _create("div");
-  bigTitleWrapper.classList.add("block_wrapper");
-  const contentWrapper = _create("div");
-  contentWrapper.classList.add("intro_content");
-  const nameTitle = _create("span");
-  nameTitle.textContent = "Le Thanh Phong";
+  /** Big title **/
+  const bigTitleWrapper = _create("div",{class: "block_wrapper"});
+  const contentWrapper = _create("div",{class: "intro_content"});
+  const nameTitle = _create("span",{},{
+    textContent: staticContent.common.name
+  });
   contentWrapper.appendChild(nameTitle);
-  const jobTitle = _create("span");
-  jobTitle.textContent = "Digital Nomad (Web Developer)";
+
+  const jobTitle = _create("span",{},{textContent:staticContent.common.title});
   contentWrapper.appendChild(jobTitle);
 
   //avatar
   const avatarWrapper = _create("div");
   avatarWrapper.classList.add("avatar_wrapper");
-  const avatarImg = _create("img") as HTMLImageElement;
-  avatarWrapper.appendChild(avatarImg);
-  avatarImg.src =
-    "https://ik.imagekit.io/flamefoxeswyvernp/65C9A4B1-88BC-4EDE-8320-D7272DC1E202_cDN5k-uWN.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1663986362929";
+  const avatarImg = _create("img" ,{src : staticContent.common.avatar }) as HTMLImageElement;
 
+  avatarWrapper.appendChild(avatarImg);
   bigTitleWrapper.appendChild(contentWrapper);
   bigTitleWrapper.appendChild(avatarWrapper);
   app?.appendChild(bigTitleWrapper);
@@ -126,12 +123,9 @@ const LandingPage: () => void = async () => {
   });
   app?.appendChild(blockSection);
   //Social Media section
-  const mediaSection = _create("section");
-  mediaSection.classList.add("section");
-
-  const mediaSectionTitle = _create("span");
-  mediaSectionTitle.classList.add("section_title");
-  mediaSectionTitle.textContent = "Media";
+  const mediaSection = _create("section",{class: "section"});
+  const mediaSectionTitle = _create("span",{class: "section_title"},{textContent: "Social Media"});
+  
   const mediaList = [
     { title: "Thanh Phong", type: "FB", link: "https://fb.me/xWyvernPx" },
     {
@@ -149,7 +143,6 @@ const LandingPage: () => void = async () => {
   mediaSection.appendChild(mediaSectionTitle);
   mediaList.forEach((media) => {
     mediaSection.appendChild(MediaTag(media));
-    console.log(MediaTag(media));
   });
   app?.appendChild(mediaSection);
   return LandingPageWrapper;
