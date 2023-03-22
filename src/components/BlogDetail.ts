@@ -1,6 +1,6 @@
 import { Blog } from "./BlogCard";
 
-export const BlogDetail = (blog: Blog) => {
+export const BlogDetail = (blog: any) => {
   console.log(blog);
   const blogWrapper = document.createElement("div");
   blogWrapper.className = "blog-detail-wrapper";
@@ -17,7 +17,7 @@ export const BlogDetail = (blog: Blog) => {
   const blogSubinfo = document.createElement("span");
   blogSubinfo.className = "blog-detail-subinfo";
   const blogDate = document.createElement("span");
-  blogDate.textContent = blog?.createdAt.split("T")[0];
+  blogDate.textContent = blog?.created_time;
   const blogAuthor = document.createElement("span");
   blogAuthor.textContent = "by WyvernP";
   blogSubinfo.appendChild(blogDate);

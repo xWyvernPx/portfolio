@@ -1,6 +1,6 @@
 export const modalInit = () => {
-  const app = document.getElementById("app");
-
+  // const app = document.getElementById("app");
+  const app = document.body;
   const modalWrapper = document.createElement("div");
   modalWrapper.classList.add("modal-wrapper");
   const closeButton = document.createElement("button");
@@ -13,9 +13,7 @@ export const modalInit = () => {
   modalWrapper.appendChild(closeButton);
   const modalContentWrapper = document.createElement("div");
   modalContentWrapper.classList.add("modal-content-wrapper");
-
   modalWrapper?.appendChild(modalContentWrapper);
-
   app?.appendChild(modalWrapper);
 };
 

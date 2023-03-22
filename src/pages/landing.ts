@@ -1,22 +1,19 @@
-import { loadingModel } from "./components/3Dmodel";
-import { BlogCard } from "./components/BlogCard";
-import { MediaTag } from "./components/mediaTag";
-import { ProjectCard } from "./components/projectCard";
-import { projects } from "./mockData";
-import staticContent from "./common.json";
+import { loadingModel } from "../components/3Dmodel";
+import { BlogCard } from "../components/BlogCard";
+import { MediaTag } from "../components/mediaTag";
+import { ProjectCard } from "../components/projectCard";
+import { projects } from "../mockData";
+import staticContent from "../common.json";
 //3D
-import { $, $$, _create } from "./utils/DOM";
-import { BlogApi } from "./api/blogs.api";
-import { navigateTo } from "./main";
+import { $, $$, _create } from "../utils/DOM";
+import { BlogApi } from "../api/blogs.api";
+import { navigateTo } from "../main";
 const LandingPage: () => void = async () => {
-  const app = $("#app");
   const LandingPageWrapper = _create("div");
-
   // const path = window.location.pathname;
 
   const threedart = _create("canvas", { id: "canvas", class: "canvas" });
-  app?.appendChild(threedart);
-  loadingModel();
+  LandingPageWrapper.appendChild(threedart);
 
   const littleTitle = _create(
     "span",
@@ -25,27 +22,37 @@ const LandingPage: () => void = async () => {
   );
 
   // littleTitle.textContent = "Hello, I'm Phong - a web developer ";
-  app?.appendChild(littleTitle);
+  LandingPageWrapper.appendChild(littleTitle);
   /** Big title **/
-  const bigTitleWrapper = _create("div",{class: "block_wrapper"});
-  const contentWrapper = _create("div",{class: "intro_content"});
-  const nameTitle = _create("span",{},{
-    textContent: staticContent.common.name
-  });
+  const bigTitleWrapper = _create("div", { class: "block_wrapper" });
+  const contentWrapper = _create("div", { class: "intro_content" });
+  const nameTitle = _create(
+    "span",
+    {},
+    {
+      textContent: staticContent.common.name,
+    }
+  );
   contentWrapper.appendChild(nameTitle);
 
-  const jobTitle = _create("span",{},{textContent:staticContent.common.title});
+  const jobTitle = _create(
+    "span",
+    {},
+    { textContent: staticContent.common.title }
+  );
   contentWrapper.appendChild(jobTitle);
 
   //avatar
   const avatarWrapper = _create("div");
   avatarWrapper.classList.add("avatar_wrapper");
-  const avatarImg = _create("img" ,{src : staticContent.common.avatar }) as HTMLImageElement;
+  const avatarImg = _create("img", {
+    src: staticContent.common.avatar,
+  }) as HTMLImageElement;
 
   avatarWrapper.appendChild(avatarImg);
   bigTitleWrapper.appendChild(contentWrapper);
   bigTitleWrapper.appendChild(avatarWrapper);
-  app?.appendChild(bigTitleWrapper);
+  LandingPageWrapper.appendChild(bigTitleWrapper);
 
   //about section
   const aboutSection = _create("section");
@@ -64,7 +71,7 @@ const LandingPage: () => void = async () => {
   );
   aboutSection.appendChild(sectionTitle);
   aboutSection.appendChild(aboutParagraph);
-  app?.appendChild(aboutSection);
+  LandingPageWrapper.appendChild(aboutSection);
 
   // Project section
   const projectSection = _create("section");
@@ -80,7 +87,7 @@ const LandingPage: () => void = async () => {
     projectList.appendChild(ProjectCard(project));
   });
   projectSection.appendChild(projectList);
-  app?.appendChild(projectSection);
+  LandingPageWrapper.appendChild(projectSection);
 
   //Blog  section
   const blockSection = _create("section");
@@ -107,25 +114,32 @@ const LandingPage: () => void = async () => {
   blogList.classList.add("project_list");
 
   blockSection.appendChild(blogList);
-  //fetch blogs
-  // const blogs = await fetch(
-  //   "https://wyvernp-portfolio.azurewebsites.net/blog?page=1&limit=6"
-  // ).then((data) => data.json());
-  const blogs = await BlogApi.getAll({
+
+  let blogs: any[] = [];
+  // try {
+  blogs = await BlogApi.getNotionPages({
     pagination: {
-      page: 1,
       limit: 6,
+      next_cursor: null,
     },
+  }).then((result) => {
+    if (result.status === "SUCCESS") {
+      return result.data.results;
+    }
   });
   console.log(blogs);
   blogs?.forEach((blog: any) => {
     blogList.appendChild(BlogCard(blog));
   });
-  app?.appendChild(blockSection);
+  LandingPageWrapper.appendChild(blockSection);
   //Social Media section
-  const mediaSection = _create("section",{class: "section"});
-  const mediaSectionTitle = _create("span",{class: "section_title"},{textContent: "Social Media"});
-  
+  const mediaSection = _create("section", { class: "section" });
+  const mediaSectionTitle = _create(
+    "span",
+    { class: "section_title" },
+    { textContent: "Social Media" }
+  );
+
   const mediaList = [
     { title: "Thanh Phong", type: "FB", link: "https://fb.me/xWyvernPx" },
     {
@@ -144,7 +158,8 @@ const LandingPage: () => void = async () => {
   mediaList.forEach((media) => {
     mediaSection.appendChild(MediaTag(media));
   });
-  app?.appendChild(mediaSection);
+  LandingPageWrapper.appendChild(mediaSection);
+  window.$emit("load_model");
   return LandingPageWrapper;
 };
 export default LandingPage;

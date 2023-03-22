@@ -8,8 +8,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://www.wyvernp.tech/",
-    credentials: true,
+    origin: "*",
+    // credentials: true,
   })
 );
 

@@ -1,8 +1,40 @@
 import "./style.css";
 // const LandingPage = await import("./landing");
 // const BlogPage = await import("./blogPage");
-import LandingPage from "./landing";
-import BlogPage from "./blogPage";
+import LandingPage from "./pages/landing";
+import BlogPage from "./pages/blogPage";
+import { ModalActive, modalInit } from "./components/Modal";
+import { BlogCreateForm } from "./components/BlogCreateForm";
+import { loadingModel } from "./components/3Dmodel";
+import EventEmitter from "eventemitter3";
+import { reactive } from "./components/hooks/reactive";
+import useState from "./components/hooks/useState";
+import css from "csstype";
+import test from "./test";
+import React from "react";
+import * as ReactDOM from "react-dom/client";
+declare global {
+  interface Window {
+    $on: typeof emitter.on;
+    $emit: typeof emitter.emit;
+  }
+  interface HTMLElement {
+    setStyle: (style: css.Properties) => void;
+  }
+}
+const emitter = new EventEmitter();
+window.$on = emitter.on.bind(emitter);
+window.$emit = emitter.emit.bind(emitter);
+// import {} from "./";
+// import * as SimpleMDE from "simplemde";
+HTMLElement.prototype.setStyle = function (style) {
+  for (const prop in style) {
+    if (this.style[prop] == "" || !this.style[prop] == null) {
+      this.style[prop] = style[prop].toString();
+    }
+  }
+};
+
 // import * as SimpleMDE from "simplemde";
 const path = window.location.pathname;
 const $ = document.querySelector.bind(document);
@@ -11,19 +43,15 @@ if (path === "/") {
   body?.style.setProperty("overflow-y", "hidden");
   const primaryLoader = document.querySelector(".primary-loader");
   const progressLoader = document.querySelector(".progress-loader");
-  primaryLoader.classList.add("active");
-  progressLoader.classList.add("active");
+  // primaryLoader.classList.add("active");
+  // progressLoader.classList.add("active");
   setTimeout(() => {
     primaryLoader.classList.remove("active");
     progressLoader.classList.remove("active");
     body?.style.setProperty("overflow-y", "auto");
-  }, 2500);
+  }, 5000);
 }
 
-// import {} from "./";
-// import * as SimpleMDE from "simplemde";
-import { ModalActive, modalInit } from "./components/Modal";
-import { BlogCreateForm } from "./components/BlogCreateForm";
 const body = document.querySelector("body");
 const themeButton = document.querySelector(".theme_toggle_btn");
 const icon = document.createElement("i");
@@ -49,19 +77,20 @@ themeButton?.addEventListener("click", () => {
 
 const createButton = document.querySelector(".blog-create-button");
 (async () => {
-  const me = await fetch(
-    "https://wyvernp-portfolio.azurewebsites.net/account/auth",
-    {
-      method: "GET",
-      credentials: "include",
-    }
-  )
-    .then((result) => result?.json())
-    .then((result) => result?.data);
-  const me2 = document.cookie.includes("ssid");
-  if (!me || !me2) {
-    createButton.classList.add("disable");
-  }
+  // const me = await fetch(
+  //   "https://wyvernp-portfolio.azurewebsites.net/account/auth",
+  //   {
+  //     method: "GET",
+  //     credentials: "include",
+  //   }
+  // )
+  //   .then((result) => result?.json())
+  //   .then((result) => result?.data);
+  // const me2 = document.cookie.includes("ssid");
+  // if (!me || !me2) {
+  //   createButton.classList.add("disable");
+  // }
+  createButton.classList.add("disable");
 })();
 
 createButton?.addEventListener("click", async () => {
@@ -86,36 +115,42 @@ const routes = {
   "/": LandingPage,
   "/blogs": BlogPage,
 };
+window.$on("load_modal", () => {
+  while (true) {
+    if ($("#canvas")) {
+      loadingModel();
+      return;
+    }
+  }
+});
+modalInit();
 
-// Define the functions for each route
-function home() {
-  console.log("You are on the home page");
-}
-
-function about() {
-  console.log("You are on the about page");
-}
-
-function contact() {
-  console.log("You are on the contact page");
-}
+const app = $("#app");
 
 // Listen for changes to the URL
-window.addEventListener("popstate", () => {
+window.addEventListener("popstate", async () => {
   // Get the current URL
-  const url = window.location.pathname;
 
-  // Call the corresponding function for the current route
-  routes[url]();
+  const url = window.location.pathname;
+  if (window.location.pathname.includes("#")) {
+  } else {
+    // Call the corresponding function for the current route
+    app.innerHTML = "";
+    app.appendChild(await routes[url]());
+  }
 });
+
 window.onload = () => {
   navigateTo(path);
 };
 // Navigate to a new URL and push it to the browser's history
-export function navigateTo(url) {
+export async function navigateTo(url) {
   window.history.pushState({}, "", url);
-  routes[url]();
+  app.innerHTML = "";
+  app.appendChild(await routes[url]());
+  loadingModel();
 }
 
 // Call the navigateTo function with the desired URL
-modalInit();
+// console.log(test());
+// console.log();

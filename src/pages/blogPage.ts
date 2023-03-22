@@ -1,8 +1,8 @@
-import { BlogApi } from "./api/blogs.api";
-import notion from "./api/notionClient";
-import { loadingModel } from "./components/3Dmodel";
-import { BlogCard } from "./components/BlogCard";
-import { $, $$, _create } from "./utils/DOM";
+import { BlogApi } from "../api/blogs.api";
+import notion from "../api/notionClient";
+import { loadingModel } from "../components/3Dmodel";
+import { BlogCard } from "../components/BlogCard";
+import { $, $$, _create } from "../utils/DOM";
 const BlogPage = async () => {
   const app = document.querySelector("#app");
   // const LandingPageWrapper = document.createElement("div");
@@ -46,7 +46,6 @@ const BlogPage = async () => {
   let page = 1;
   const limit = 12;
   let next_cursor = undefined;
-  let blogs: any[] = [];
 
   const PaginationWrapper = document.createElement("div");
 
@@ -57,6 +56,7 @@ const BlogPage = async () => {
   const blogList = document.createElement("div");
   blogList.className = "project_list";
 
+  let blogs: any[] = [];
   // try {
   blogs = await BlogApi.getNotionPages({
     pagination: {
