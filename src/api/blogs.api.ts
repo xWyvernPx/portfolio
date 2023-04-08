@@ -30,4 +30,9 @@ export const BlogApi = {
     });
     return res as any;
   },
+  getNotionPageDetail: async function (pageId : string): Promise<QueryResponse<NotionListResponse<any>>> {
+    const url = "/page/"+pageId;
+    const res = await axiosClient.get(url);
+    return res.data;
+  },
 };

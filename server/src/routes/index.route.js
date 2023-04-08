@@ -1,21 +1,19 @@
-const BlogRouter = require("./blog/blog.route");
-const ImageKit = require("imagekit");
-const AccountRouter = require("./account/account.route");
-const NotionPageRouter = require("./notion/page.route"); ///
+// import BlogRouter from "./blog/blog.route.js";
+// import AccountRouter from "./account/account.route.js";
+import ImageKit from "imagekit";
+import NotionPageRouter from "./notion/page.route.js"; ///
+
 const imgkit = new ImageKit({
   publicKey: "public_S6vyU9FG56dNofgzx0hbbBAZGDs=",
   privateKey: "private_1LD3K7nVG8n6LkP08+Lk21zCZ3M=",
   urlEndpoint: "https://ik.imagekit.io/flamefoxeswyvernp",
 });
-const { Client } = require("@notionhq/client");
 
 // Initializing a client
-module.exports = (app) => {
-  const notion = new Client({
-    auth: process.env.NOTION_TOKEN,
-  });
-  app.use("/blog", BlogRouter);
-  app.use("/account", AccountRouter);
+ const Router = (app) => {
+
+  // app.use("/blog", BlogRouter);
+  // app.use("/account", AccountRouter);
   app.get("/imagekit", (req, res, next) =>
     res.json(
       imgkit.getAuthenticationParameters(new Date().getTime().toString())
@@ -30,3 +28,4 @@ module.exports = (app) => {
     // res.send(process.env.NOTION_TOKEN);
   });
 };
+export default Router

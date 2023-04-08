@@ -1,5 +1,8 @@
-const { Client } = require("@notionhq/client");
-const JSend = require("../../helpers/JSend");
+import { Client } from "@notionhq/client";
+import JSend from "../../helpers/JSend.js";
+import { NotionAPI } from 'notion-client'
+
+const notionAPI = new NotionAPI()
 
 // Initializing a client
 
@@ -33,19 +36,26 @@ const NotionPageController = {
     });
     try {
       const { id } = req.params;
-      const [page, content] = await Promise.all([
-        notion.pages.retrieve({
-          page_id: id,
-        }),
-        notion.blocks.children.list({
-          block_id: id,
-        }),
-      ]);
+      // const [page, content] = await Promise.all([
+      //   notion.pages.retrieve({
+      //     page_id: id,
+      //   }),
+      //   notion.blocks.children.list({
+      //     block_id: id,
+      //   }),
+      // ]);
+      // res.json(
+      //   JSend.SuccessResponse({
+      //     page_info: page,
+      //     content,
+      //   })
+      // );
+      // const record =  await notion.pages.retrieve({
+      //   page_id: id
+      // })
+      const record = await notionAPI.getPage(id);
       res.json(
-        JSend.SuccessResponse({
-          page_info: page,
-          content,
-        })
+        JSend.SuccessResponse(record)
       );
     } catch (error) {
       //   next();
@@ -54,4 +64,4 @@ const NotionPageController = {
   },
 };
 
-module.exports = NotionPageController;
+export default NotionPageController;

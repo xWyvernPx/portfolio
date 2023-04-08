@@ -16,6 +16,7 @@
     "noImplicitReturns": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
     "jsx": "preserve"
   },
   "include": ["src"]

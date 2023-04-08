@@ -3,12 +3,15 @@ import { BlogCard } from "../components/BlogCard";
 import { MediaTag } from "../components/mediaTag";
 import { ProjectCard } from "../components/projectCard";
 import { projects } from "../mockData";
-import staticContent from "../common.json";
+import staticContent from "../assets/common.json";
 //3D
 import { $, $$, _create } from "../utils/DOM";
 import { BlogApi } from "../api/blogs.api";
 import { navigateTo } from "../main";
+import useLoading from "../components/hooks/useLoading";
 const LandingPage: () => void = async () => {
+  const {closeLoading,openLoading} = useLoading();
+  openLoading();
   const LandingPageWrapper = _create("div");
   // const path = window.location.pathname;
 
@@ -159,7 +162,9 @@ const LandingPage: () => void = async () => {
     mediaSection.appendChild(MediaTag(media));
   });
   LandingPageWrapper.appendChild(mediaSection);
+  
   window.$emit("load_model");
+  closeLoading?.();
   return LandingPageWrapper;
 };
 export default LandingPage;

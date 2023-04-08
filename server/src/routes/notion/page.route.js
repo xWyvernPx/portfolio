@@ -1,9 +1,10 @@
-const express = require("express");
-const NotionPageController = require("../../controllers/notion/notionPage.controller");
+import express from "express";
+import NotionController from "../../controllers/notion/notionPage.controller.js";
+
 const NotionPageRouter = express.Router();
 
-NotionPageRouter.get("/", NotionPageController.getAllPages);
-NotionPageRouter.get("/:id", NotionPageController.getDetailPage);
+NotionPageRouter.get("/", NotionController.getAllPages);
+NotionPageRouter.get("/:id", NotionController.getDetailPage);
 NotionPageRouter.post("/");
 
-module.exports = NotionPageRouter;
+export default NotionPageRouter;

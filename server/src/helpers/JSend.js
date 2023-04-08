@@ -1,4 +1,4 @@
-module.exports = {
+const JSend =  {
   SuccessResponse: (data, message) => {
     return {
       status: "SUCCESS",
@@ -15,3 +15,4 @@ module.exports = {
     };
   },
 };
+export default JSend

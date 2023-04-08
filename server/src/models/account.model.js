@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const accountSchema = new mongoose.Schema(
   {
@@ -14,4 +14,4 @@ accountSchema.method("passwordEncrypt", function () {
   this.password = this.password + "WyvernP";
 });
 accountSchema.method("c");
-module.exports = Account;
+export default Account;

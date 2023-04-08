@@ -1,8 +1,8 @@
-import { BlogApi } from "../api/blogs.api";
-import notion from "../api/notionClient";
-import { loadingModel } from "../components/3Dmodel";
-import { BlogCard } from "../components/BlogCard";
-import { $, $$, _create } from "../utils/DOM";
+import { BlogApi } from "../../api/blogs.api";
+import notion from "../../api/notionClient";
+import { loadingModel } from "../../components/3Dmodel";
+import { BlogCard } from "../../components/BlogCard";
+import { $, $$, _create } from "../../utils/DOM";
 const BlogPage = async () => {
   const app = document.querySelector("#app");
   // const LandingPageWrapper = document.createElement("div");

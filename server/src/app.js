@@ -1,9 +1,10 @@
-const express = require("express");
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
+import path from "path";
+import Router from "./routes/index.route.js";
 const app = express();
-const path = require("path");
-const Router = require("./routes/index.route");
-require("dotenv").config();
+import dotenv from "dotenv" 
+dotenv.config();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(
@@ -14,7 +15,7 @@ app.use(
 );
 
 Router(app);
-app.use(express.static(path.join(__dirname, "/public/build")));
+// app.use(express.static(path.join(__dirname, "/public/build")));
 // app.get("*", (req, res, next) => {
 //   const fileDirectory = path.resolve(__dirname, ".", "public/build");
 
@@ -26,4 +27,4 @@ app.use(express.static(path.join(__dirname, "/public/build")));
 //   // res.sendFile("index.html", { root: __dirname });
 // });
 
-module.exports = app;
+export default app;

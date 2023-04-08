@@ -1,5 +1,6 @@
-const jwt = require("jsonwebtoken");
-const Account = require("../models/account.model");
+import jwt from "jsonwebtoken";
+import Account from "../models/account.model.js";
+
 const accountService = {
   getMe: (token) => {
     if (token) {
@@ -14,4 +15,5 @@ const accountService = {
     return account;
   },
 };
-module.exports = accountService;
+
+export default accountService;

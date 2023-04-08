@@ -1,56 +1,22 @@
 import "./style.css";
 // const LandingPage = await import("./landing");
 // const BlogPage = await import("./blogPage");
-import LandingPage from "./pages/landing";
-import BlogPage from "./pages/blogPage";
-import { ModalActive, modalInit } from "./components/Modal";
-import { BlogCreateForm } from "./components/BlogCreateForm";
 import { loadingModel } from "./components/3Dmodel";
-import EventEmitter from "eventemitter3";
-import { reactive } from "./components/hooks/reactive";
-import useState from "./components/hooks/useState";
-import css from "csstype";
-import test from "./test";
-import React from "react";
-import * as ReactDOM from "react-dom/client";
-declare global {
-  interface Window {
-    $on: typeof emitter.on;
-    $emit: typeof emitter.emit;
-  }
-  interface HTMLElement {
-    setStyle: (style: css.Properties) => void;
-  }
-}
-const emitter = new EventEmitter();
-window.$on = emitter.on.bind(emitter);
-window.$emit = emitter.emit.bind(emitter);
-// import {} from "./";
-// import * as SimpleMDE from "simplemde";
-HTMLElement.prototype.setStyle = function (style) {
-  for (const prop in style) {
-    if (this.style[prop] == "" || !this.style[prop] == null) {
-      this.style[prop] = style[prop].toString();
-    }
-  }
-};
+import { BlogCreateForm } from "./components/BlogCreateForm";
+import { ModalActive, modalInit } from "./components/Modal";
+import BlogPage from "./pages/blogs/blogPage";
+import LandingPage from "./pages/landing";
 
+
+import { BlogApi } from "./api/blogs.api";
+import "./app";
+import common from "./assets/common.json";
+import BlogDetailPage from "./pages/blogs/detail";
+import { $ } from "./utils/DOM";
+import useLoading from "./components/hooks/useLoading";
+import { clearElement } from "./app";
 // import * as SimpleMDE from "simplemde";
 const path = window.location.pathname;
-const $ = document.querySelector.bind(document);
-if (path === "/") {
-  const body = document.querySelector("body");
-  body?.style.setProperty("overflow-y", "hidden");
-  const primaryLoader = document.querySelector(".primary-loader");
-  const progressLoader = document.querySelector(".progress-loader");
-  // primaryLoader.classList.add("active");
-  // progressLoader.classList.add("active");
-  setTimeout(() => {
-    primaryLoader.classList.remove("active");
-    progressLoader.classList.remove("active");
-    body?.style.setProperty("overflow-y", "auto");
-  }, 5000);
-}
 
 const body = document.querySelector("body");
 const themeButton = document.querySelector(".theme_toggle_btn");
@@ -65,8 +31,8 @@ themeButton?.addEventListener("click", () => {
   body?.classList.toggle("dark");
   console.log($("#logo img"));
   $("#logo img").src = body?.classList.contains("dark")
-    ? "https://ik.imagekit.io/flamefoxeswyvernp/logo-light.png?ik-sdk-version=javascript-1.4.3&updatedAt=1665500612008"
-    : "https://ik.imagekit.io/flamefoxeswyvernp/logo-dark_HSjJ_OO-h.png?ik-sdk-version=javascript-1.4.3&updatedAt=1665500660934";
+    ? common.logo.light
+    : common.logo.dark;
   icon.className = "";
   if (body?.classList.contains("dark")) {
     icon.className = "fa-solid fa-lightbulb";
@@ -103,40 +69,78 @@ createButton?.addEventListener("click", async () => {
   }
 });
 
-// switch (path) {
-//   case "/":
-//     LandingPage();
-//     break;
-//   case "/blogs":
-//     BlogPage();
-//     break;
-// }
-const routes = {
-  "/": LandingPage,
-  "/blogs": BlogPage,
-};
-window.$on("load_modal", () => {
-  while (true) {
-    if ($("#canvas")) {
-      loadingModel();
-      return;
-    }
-  }
-});
-modalInit();
 
+window.$on("load_model", async (closeLoading) => {
+  console.log("event");
+  var is_load =  loadingModel();
+  var try_count = 0;
+  const TRY_TIMES = 5;
+    while(!is_load && try_count < TRY_TIMES){
+      await setTimeout(()=>{
+        if(!is_load){
+          is_load =  loadingModel();
+        }
+      },2000)
+      try_count++;
+    };
+});
+
+modalInit();
+interface RouteConfig {
+  component: (data?: any) => HTMLElement;
+  fetchData?: (...params: string[]) => Promise<any>;
+  paramValues?: string[];
+}
+
+const routes: { [url: string]: RouteConfig } = {
+  "/": { component: LandingPage as any },
+  "/blogs": { component: BlogPage as any },
+  "/blogs/:blogId": {
+    component: BlogDetailPage as any,
+    fetchData: async (blogId: string) => {
+      console.log("blogId", blogId);
+      // const response = await  notion.getPage(blogId);
+      // console.log(response);
+      const response = await BlogApi.getNotionPageDetail(blogId);
+      console.log(response);
+      
+      // return await response.json();
+      return response;
+    },
+    paramValues: ["blogId"],
+  },
+};
 const app = $("#app");
 
 // Listen for changes to the URL
 window.addEventListener("popstate", async () => {
+ 
   // Get the current URL
 
   const url = window.location.pathname;
   if (window.location.pathname.includes("#")) {
   } else {
     // Call the corresponding function for the current route
-    app.innerHTML = "";
-    app.appendChild(await routes[url]());
+    // app.innerHTML = "";
+    clearElement(app)
+    const route = findRoute(url);
+    if (route) {
+      const { component, fetchData,paramValues } = route;
+      const params = extractParams(url, route);
+      
+      if (fetchData) {
+        const data = await fetchData(paramValues);
+        app.appendChild(await component(data));
+      } else {
+        const content = await component();
+        if (content !== undefined) {
+          app.appendChild(content);
+        }        
+      }
+    } else {
+      // app.appendChild(createNotFoundPageElement());
+      console.error("Could not find page")
+    }
   }
 });
 
@@ -146,11 +150,48 @@ window.onload = () => {
 // Navigate to a new URL and push it to the browser's history
 export async function navigateTo(url) {
   window.history.pushState({}, "", url);
-  app.innerHTML = "";
-  app.appendChild(await routes[url]());
-  loadingModel();
+  window.dispatchEvent(new PopStateEvent("popstate"));
+ 
 }
 
-// Call the navigateTo function with the desired URL
-// console.log(test());
-// console.log();
+function findRoute(url) {
+  for (const [route, config] of Object.entries(routes)) {
+    if (route === url) {
+      return config;
+    }
+    if (route.includes(":")) {
+      const regex = new RegExp(route.replace(/:[^\s/]+/g, "([\\w-]+)"));
+      const match = url.match(regex);
+      if (match) {
+        const paramValues = match.slice(1);
+        const { component, fetchData } = config as any;
+        return { component, fetchData, paramValues };
+      }
+    }
+  }
+}
+
+function extractParams(url, route) {
+  const params = [];
+  if (route.paramValues) {
+    const parts = url.split("/");
+    const paramIndexes = [];
+    route.paramValues.forEach((param, index) => {
+      const paramIndex = parts.indexOf(param);
+      if (paramIndex !== -1) {
+        paramIndexes.push(paramIndex);
+        params.push(parts[paramIndex]);
+      }
+    });
+    paramIndexes.forEach(index => {
+      parts.splice(index, 1);
+    });
+    url = parts.join("/");
+  }
+  return [url, ...params];
+}
+
+export function goBack(): void {
+  window.history.back();
+}
+

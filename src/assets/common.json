@@ -1,4 +1,8 @@
 {
+    "logo": {
+        "dark" : "https://ik.imagekit.io/flamefoxeswyvernp/logo-dark_HSjJ_OO-h.png?ik-sdk-version=javascript-1.4.3&updatedAt=1665500660934",
+        "light" : "https://ik.imagekit.io/flamefoxeswyvernp/logo-light.png?ik-sdk-version=javascript-1.4.3&updatedAt=1665500612008"
+    },
     "hero" : {
         "hero_welcome": "Hello, I'm Phong - a web developer and a codeholic :)"
     },

@@ -4,6 +4,7 @@ import { BlogDetail } from "./BlogDetail";
 const converter = new showdown.Converter();
 import { _create } from "../utils/DOM";
 import { BlogTag } from "./common/tags/BlogTag";
+import { navigateTo } from "../main";
 export interface Blog {
   _id: string;
   title: string;
@@ -55,11 +56,13 @@ export const BlogCard = (blog: any) => {
   });
 
   cardWrapper.addEventListener("click", () => {
-    console.log("blog click", blog);
 
+    console.log("CLICK ", blog);
+    
     const contentWrapper = _create("div");
     contentWrapper.innerHTML = "da";
-    ModalActive(BlogDetail({ ...blog, content: "contentConverted" }));
+    // ModalActive(BlogDetail({ ...blog, content: "contentConverted" }));
+    navigateTo("/blogs/"+blog?.id);
   });
   const cardDecoratorWrapper = _create("div", {
     class: "blog-card-wrapper__decorator",

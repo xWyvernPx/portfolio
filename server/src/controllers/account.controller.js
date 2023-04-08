@@ -1,6 +1,6 @@
-const accountService = require("../service/account.service");
-const { SuccessResponse, FailResponse } = require("../helpers/JSend");
-module.exports = {
+import accountService from "../service/account.service.js";
+import { SuccessResponse, FailResponse } from "../helpers/JSend.js";
+export default {
   getMe: async (req, res, next) => {
     const { access_token } = req.body;
     const account = await accountService.getMe(access_token || "");

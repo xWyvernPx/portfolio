@@ -4,6 +4,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 export const loadingModel = () => {
   const canvas = document.getElementById("canvas") as any;
+  if(!canvas) return false;
   console.log("load model");
 
   // Scene
@@ -89,4 +90,5 @@ export const loadingModel = () => {
   };
 
   tick();
+  return true;
 };

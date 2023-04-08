@@ -1,5 +1,7 @@
-const AccountRouter = require("express").Router();
-const { getMe } = require("../../controllers/account.controller");
+import { Router } from "express";
+import { getMe } from "../../controllers/account.controller.js";
+
+const AccountRouter = Router();
 AccountRouter.route("/auth").get(getMe);
 
-module.exports = AccountRouter;
+export default AccountRouter;
