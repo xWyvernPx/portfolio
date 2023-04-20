@@ -2,13 +2,13 @@ import React,{useMemo,useEffect} from 'react'
 import styled from 'styled-components'
 import { goBack, navigateTo } from '../../../main'
 import {NotionRenderer} from 'react-notion-x'
-
+import { Code } from 'react-notion-x/build/third-party/code'
+import { Collection } from 'react-notion-x/build/third-party/collection'
 // core styles shared by all of react-notion-x (required)
 import 'react-notion-x/src/styles.css'
-
+import '../../../assets/style/notion_custom.css'
 // used for code syntax highlighting (optional)
 import 'prismjs/themes/prism-tomorrow.css'
-
 // used for rendering equations (optional)
 import 'katex/dist/katex.min.css'
 type Props = {
@@ -28,9 +28,6 @@ const Headline = styled.div`
 const DetailLayout = ({name,blog}: Props) => {
 
     console.log(blog);
-    
-  
-    
     return (
         <div>
 
@@ -40,8 +37,18 @@ const DetailLayout = ({name,blog}: Props) => {
             }}>back</button>
             <div>Functions</div>
         </Headline>
-        <h1>TEST LAYOUT REACT {name}</h1>
-        {blog&&<NotionRenderer recordMap={blog} fullPage={true} darkMode={false}/>}
+        {blog&&<NotionRenderer 
+        
+        defaultPageCover='https://source.unsplash.com/random'
+        className='dark-mode notion_custom'
+        hideBlockId
+        disableHeader
+        previewImages
+        components={{
+            Code,
+            Collection
+          }}
+        recordMap={blog} fullPage={true} darkMode={false}/>}
     </div>
   )
 }

@@ -1,8 +1,8 @@
 import { Client } from "@notionhq/client";
 import JSend from "../../helpers/JSend.js";
-import { NotionAPI } from 'notion-client'
+import { NotionAPI} from 'notion-client'
 
-const notionAPI = new NotionAPI()
+const notionAPI = new NotionAPI({authToken:  process.env.NOTION_TOKEN})
 
 // Initializing a client
 
@@ -50,10 +50,8 @@ const NotionPageController = {
       //     content,
       //   })
       // );
-      // const record =  await notion.pages.retrieve({
-      //   page_id: id
-      // })
-      const record = await notionAPI.getPage(id);
+
+      const record = await notionAPI.getPage(id); 
       res.json(
         JSend.SuccessResponse(record)
       );
