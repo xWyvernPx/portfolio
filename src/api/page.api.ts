@@ -23,6 +23,7 @@ export const PageAPI = {
                 }
               };
             }
+            return null;
           }))
     }
 }

@@ -1,15 +1,13 @@
-import { loadingModel } from "../components/3Dmodel";
 import { BlogCard } from "../components/BlogCard";
 import { MediaTag } from "../components/mediaTag";
 import { ProjectCard } from "../components/projectCard";
 import { projects } from "../mockData";
-import staticContent from "../assets/common.json";
 //3D
-import { $, $$, _create } from "../utils/DOM";
 import { BlogApi } from "../api/blogs.api";
-import { navigateTo } from "../main";
-import useLoading from "../components/hooks/useLoading";
 import { Hero } from "../components/common/hero/Hero";
+import useLoading from "../components/hooks/useLoading";
+import { navigateTo } from "../main";
+import { _create } from "../utils/DOM";
 const LandingPage: () => void = async () => {
   const {closeLoading,openLoading} = useLoading();
   openLoading();
@@ -52,7 +50,7 @@ const LandingPage: () => void = async () => {
   const blogSectionHeader = _create("div",{
     class: "section_header"
   });
-  
+
   const seeAllButton = _create("button");
   seeAllButton.classList.add("see_all_button");
   seeAllButton.textContent = "See All";
@@ -80,6 +78,7 @@ const LandingPage: () => void = async () => {
     if (result.status === "SUCCESS") {
       return result.data.results;
     }
+    return null;
   });
   console.log(blogs);
   blogs?.forEach((blog: any) => {

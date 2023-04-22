@@ -1,4 +1,3 @@
-import { Blog } from "./BlogCard";
 
 export const BlogDetail = (blog: any) => {
   console.log(blog);

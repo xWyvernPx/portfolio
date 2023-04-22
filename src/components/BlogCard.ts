@@ -1,10 +1,7 @@
-import { ModalActive } from "./Modal";
-import showdown from "showdown";
-import { BlogDetail } from "./BlogDetail";
-const converter = new showdown.Converter();
+import { navigateTo } from "../main";
 import { _create } from "../utils/DOM";
 import { BlogTag } from "./common/tags/BlogTag";
-import { navigateTo } from "../main";
+// const converter = new showdown.Converter();
 export interface Blog {
   _id: string;
   title: string;
@@ -12,7 +9,7 @@ export interface Blog {
   thumbnail: string;
   createdAt: string;
 }
-const mockTag = ["FrontEnd", "Backend", "DevOps", "Design"];
+// const mockTag = ["FrontEnd", "Backend", "DevOps", "Design"];
 export const BlogCard = (blog: any) => {
   const cardWrapper = _create("div", {
     class: "blog-card-wrapper",

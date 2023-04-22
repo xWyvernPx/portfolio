@@ -1,14 +1,12 @@
 import { BlogApi } from "../../api/blogs.api";
-import notion from "../../api/notionClient";
 import { PageAPI } from "../../api/page.api";
-import { loadingModel } from "../../components/3Dmodel";
 import { BlogCard } from "../../components/BlogCard";
 import { BlogListPagination } from "../../components/blogs/list/Pagination";
 import { Hero } from "../../components/common/hero/Hero";
-import { $, $$, _create } from "../../utils/DOM";
+import { _create } from "../../utils/DOM";
 import * as PagingHelper from "../../utils/paging";
 
-let page = 1;
+// let page = 1;
 const limit = 9;
 let next_cursor = undefined;
 let hasNext = false;
@@ -55,6 +53,7 @@ const BlogPage = async () => {
       console.log("RESULT FETCHED", result);
       return result.data.results;
     }
+    return null;
   });
 }
   console.log(blogs);
@@ -70,6 +69,8 @@ const BlogPage = async () => {
     PagingHelper.setNextPage(pagination.next_cursor);
     hasNext = pagination.hasNext;
     renderBloglist(blogList, blogs);
+    console.log(hasNext);
+    
   };
   pageWithHero.appendChild(BlogListPagination({
     loadMoreHanler : getListHandler

@@ -1,6 +1,4 @@
-import React from 'react';
 import * as ReactDOM from 'react-dom';
-import MyComponent from "./test.tsx";
 // Define a React component
 
   // Mount the component to the DOM element with ID "root"

@@ -6,9 +6,14 @@
   "homepage": ".",
   "proxy": "http://localhost:4422",
   "scripts": {
+    "install-all" : "yarn install & npm run install-server",
     "dev": "vite --port 3173",
     "build": "tsc && vite build --base=./ ",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "install-server"  : "cd server && yarn install",
+    "prod_ui" : "serve -s dist --single -p 2506 & ",
+    "prod_server" : "node server/server.js & ",
+    "prod" : "yarn prod_ui & prod_server"
   },
   "devDependencies": {
     "@types/node": "^18.7.16",

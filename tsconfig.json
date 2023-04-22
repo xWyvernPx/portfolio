@@ -16,7 +16,6 @@
     "noImplicitReturns": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
-    "allowImportingTsExtensions": true,
     "jsx": "preserve",
     "paths": {
       "react": ["./node_modules/react/index.js"]

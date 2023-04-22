@@ -1,7 +1,5 @@
 import { _create } from "../../../utils/DOM";
-import { reactive } from "../../hooks/reactive";
-import useState from "../../hooks/useState";
-import { TagColor, CommonTagStyle, TagColorStyle } from "./tag.style";
+import { CommonTagStyle, TagColor, TagColorStyle } from "./tag.style";
 
 interface TagProps {
   name: string;

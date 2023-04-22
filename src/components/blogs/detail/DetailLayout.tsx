@@ -1,9 +1,8 @@
-import React,{useMemo,useEffect} from 'react'
-import styled from 'styled-components'
-import { goBack, navigateTo } from '../../../main'
-import {NotionRenderer} from 'react-notion-x'
+import { NotionRenderer } from 'react-notion-x'
 import { Code, } from 'react-notion-x/build/third-party/code'
 import { Collection } from 'react-notion-x/build/third-party/collection'
+import styled from 'styled-components'
+import { goBack } from '../../../main'
 // core styles shared by all of react-notion-x (required)
 import 'react-notion-x/src/styles.css'
 import '../../../assets/style/notion_custom.css'
@@ -11,15 +10,14 @@ import '../../../assets/style/notion_custom.css'
 import 'prismjs/themes/prism-tomorrow.css'
 // used for rendering equations (optional)
 import 'katex/dist/katex.min.css'
-import { reactive } from '../../hooks/reactive'
 type Props = {
     blog: any
 }
-const Layout = styled.div`
-    width: 100%;
-    padding: 2rem;
+// const Layout = styled.div`
+//     width: 100%;
+//     padding: 2rem;
 
-`
+// `
 const Headline = styled.div`
     display: flex;
     width: 100%;

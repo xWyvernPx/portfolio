@@ -10,11 +10,10 @@ import LandingPage from "./pages/landing";
 
 import { BlogApi } from "./api/blogs.api";
 import "./app";
+import { clearElement } from "./app";
 import common from "./assets/common.json";
 import BlogDetailPage from "./pages/blogs/detail";
 import { $ } from "./utils/DOM";
-import useLoading from "./components/hooks/useLoading";
-import { clearElement } from "./app";
 // import * as SimpleMDE from "simplemde";
 const path = window.location.pathname;
 
@@ -76,7 +75,7 @@ createButton?.addEventListener("click", async () => {
 });
 
 
-window.$on("load_model", async (closeLoading) => {
+window.$on("load_model", async () => {
   console.log("event");
   var is_load =  loadingModel();
   var try_count = 0;
@@ -132,7 +131,7 @@ window.addEventListener("popstate", async () => {
     const route = findRoute(url);
     if (route) {
       const { component, fetchData,paramValues } = route;
-      const params = extractParams(url, route);
+      // const params = extractParams(url, route);
       
       if (fetchData) {
         const data = await fetchData(paramValues);
@@ -175,14 +174,15 @@ function findRoute(url) {
       }
     }
   }
+  return null;
 }
 
-function extractParams(url, route) {
+export function extractParams(url, route) {
   const params = [];
   if (route.paramValues) {
     const parts = url.split("/");
     const paramIndexes = [];
-    route.paramValues.forEach((param, index) => {
+    route.paramValues.forEach((param) => {
       const paramIndex = parts.indexOf(param);
       if (paramIndex !== -1) {
         paramIndexes.push(paramIndex);
