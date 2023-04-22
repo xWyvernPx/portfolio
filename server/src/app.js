@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(
   cors({
-    origin: "*",
+    origin: ["http://localhost:3173", "https://wyvernp.tech"],
     // credentials: true,
   })
 );

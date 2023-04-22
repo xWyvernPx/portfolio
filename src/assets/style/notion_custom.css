@@ -1,7 +1,33 @@
 .notion_custom {
     font-family: "m-plus-rounded-1c";
     background-color: transparent;
+    color: var(--text-color)
+}
+.notion-file-icon{
+    stroke : var(--text-color);
+}
+.notion-file {
+    cursor: pointer;
 }
 .notion-collection-page-properties {
     display: none;
+}
+.notion-page {
+    padding-left: 0;
+    padding-right: 0;
+}
+.notion-code {
+    overflow: visible;
+}
+.notion-code-copy-button {
+    transform: scale;
+}
+blockquote{
+    font-style: italic;
+}
+blockquote div::before {
+    content: '“ '
+}
+blockquote div::after {
+    content: ' ”'
 }

@@ -18,6 +18,9 @@
     "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
     "jsx": "preserve",
+    "paths": {
+      "react": ["./node_modules/react/index.js"]
+    }
   },
   "include": ["src"]
 }

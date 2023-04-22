@@ -30,15 +30,21 @@ themeButton?.appendChild(icon);
 themeButton?.addEventListener("click", () => {
   body?.classList.toggle("dark");
   console.log($("#logo img"));
-  $("#logo img").src = body?.classList.contains("dark")
+  const isDark =  body?.classList.contains("dark")
+  $("#logo img").src = isDark
     ? common.logo.light
     : common.logo.dark;
   icon.className = "";
-  if (body?.classList.contains("dark")) {
+  if (isDark) {
+    $('.notion.notion-app')?.classList.add('dark-mode');
+    $('.notion.notion-app')?.classList.remove('light-mode');
     icon.className = "fa-solid fa-lightbulb";
   } else {
+    $('.notion.notion-app')?.classList.remove('dark-mode');
+    $('.notion.notion-app')?.classList.add('light-mode');
     icon.className = "fa-solid fa-moon";
   }
+  window.$emit("mode_change",isDark)
 });
 
 const createButton = document.querySelector(".blog-create-button");

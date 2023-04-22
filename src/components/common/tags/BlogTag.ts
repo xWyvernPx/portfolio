@@ -6,8 +6,9 @@ import { TagColor, CommonTagStyle, TagColorStyle } from "./tag.style";
 interface TagProps {
   name: string;
   color: TagColor;
+  mode? : "lm"| "dm"
 }
-export const BlogTag = ({ color, name }: TagProps) => {
+export const BlogTag = ({ color, name,mode = "dm" }: TagProps) => {
   const tagWrapper = _create(
     "span",
     {
@@ -17,7 +18,6 @@ export const BlogTag = ({ color, name }: TagProps) => {
       textContent: name || "Empty",
     }
   );
-  const mode = "lm";
   const currentStyle = {
     ...CommonTagStyle.sm,
     ...TagColorStyle[color][mode],

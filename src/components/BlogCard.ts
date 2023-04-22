@@ -22,7 +22,9 @@ export const BlogCard = (blog: any) => {
     class: "blog-card-thumbnail-wrapper",
   });
   const thumbnail = _create("img", {
-    src: blog.cover || "https://source.unsplash.com/random",
+    src:
+      blog?.cover?.external?.url ||
+      "https://source.unsplash.com/1200x300/?random",
   });
 
   thumnbailWrapper.appendChild(thumbnail);
@@ -32,9 +34,14 @@ export const BlogCard = (blog: any) => {
     "h3",
     {
       class: "blog-card-title",
+      style: {
+        textAlign: "center",
+      },
     },
     {
-      textContent: blog.properties.Name.title?.[0]?.plain_text,
+      textContent: `${blog?.icon?.emoji || ""}  ${
+        blog.properties.Name.title?.[0]?.plain_text
+      }`,
     }
   );
   cardWrapper.appendChild(blogTitle);
@@ -46,23 +53,43 @@ export const BlogCard = (blog: any) => {
       flex: "0 0 auto",
     },
   });
-  mockTag.forEach((tag) => {
+  var mode: "dm" | "lm" = "dm";
+  window.$on("mode_change", (isDarkMode) => {
+    if (isDarkMode) {
+      mode = "dm";
+    } else {
+      mode = "lm";
+    }
+    const tags = getTags(blog);
+    tagContainer.innerHTML = "";
+    tags.forEach(({ name, color }) => {
+      tagContainer.appendChild(
+        BlogTag({
+          color,
+          name,
+          mode,
+        })
+      );
+    });
+  });
+  const tags = getTags(blog);
+  tagContainer.innerHTML = "";
+  tags.forEach(({ name, color }) => {
     tagContainer.appendChild(
       BlogTag({
-        color: "pink",
-        name: tag,
+        color,
+        name,
+        mode,
       })
     );
   });
-
+  cardWrapper.appendChild(tagContainer);
   cardWrapper.addEventListener("click", () => {
-
-    console.log("CLICK ", blog);
-    
+    window.$emit("persistBlogs");
     const contentWrapper = _create("div");
     contentWrapper.innerHTML = "da";
     // ModalActive(BlogDetail({ ...blog, content: "contentConverted" }));
-    navigateTo("/blogs/"+blog?.id);
+    navigateTo("/blogs/" + blog?.id);
   });
   const cardDecoratorWrapper = _create("div", {
     class: "blog-card-wrapper__decorator",
@@ -72,4 +99,22 @@ export const BlogCard = (blog: any) => {
   });
   cardDecoratorWrapper.append(cardWrapper, cardDecorator);
   return cardDecoratorWrapper;
+};
+
+const getTags = (blog: any) => {
+  var tags = [];
+  const propsToGetTags = [
+    { name: "Stack", type: "multi_select" },
+    { name: "Tech", type: "multi_select" },
+  ];
+  propsToGetTags.forEach((prop) => {
+    const data = blog.properties[prop.name][prop.type];
+    if (Array.isArray(data)) {
+      tags.push(...data);
+    } else {
+      tags.push(...data);
+    }
+  });
+  console.log("TAGS", tags);
+  return tags;
 };

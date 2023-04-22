@@ -409,7 +409,7 @@ body .project_button_wrapper a {
   border-radius: 5px;
   border : 2px solid var(--text-color);
   width: 100%;
-  background-color: var(--text-background-color);
+  background-color: rgb(47,47,47);
   box-shadow: 1px 1px 12px -7px var(--text-color);
   height: 100%;
   cursor: pointer;
@@ -906,6 +906,13 @@ svg.tea #steamR {
   }
 
 }
+.blog-list-pagination-wrapper {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
 
 @media screen and (max-width: 767.98px) {
     :root {

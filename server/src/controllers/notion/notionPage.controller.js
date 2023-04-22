@@ -18,6 +18,17 @@ const NotionPageController = {
         database_id: process.env.DATABASE_ID,
         page_size: limit ? +limit : 25,
         start_cursor: next_cursor,
+        filter: {
+          "and" : [
+            {
+              "property" : "Show on portfolio",
+              "select" : {
+                "does_not_equal" : "Not Show"
+              }
+            }
+          ],
+          
+        }
       });
       //   const result = await notion.pages.retrieve({
       //     page_id: "cd94c4df-456f-4689-8174-c7cf427d4919",

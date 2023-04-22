@@ -9,99 +9,50 @@ import { $, $$, _create } from "../utils/DOM";
 import { BlogApi } from "../api/blogs.api";
 import { navigateTo } from "../main";
 import useLoading from "../components/hooks/useLoading";
+import { Hero } from "../components/common/hero/Hero";
 const LandingPage: () => void = async () => {
   const {closeLoading,openLoading} = useLoading();
   openLoading();
-  const LandingPageWrapper = _create("div");
-  // const path = window.location.pathname;
-
-  const threedart = _create("canvas", { id: "canvas", class: "canvas" });
-  LandingPageWrapper.appendChild(threedart);
-
-  const littleTitle = _create(
-    "span",
-    { class: "hello_label" },
-    { textContent: staticContent.hero.hero_welcome }
-  );
-
-  // littleTitle.textContent = "Hello, I'm Phong - a web developer ";
-  LandingPageWrapper.appendChild(littleTitle);
-  /** Big title **/
-  const bigTitleWrapper = _create("div", { class: "block_wrapper" });
-  const contentWrapper = _create("div", { class: "intro_content" });
-  const nameTitle = _create(
-    "span",
-    {},
-    {
-      textContent: staticContent.common.name,
-    }
-  );
-  contentWrapper.appendChild(nameTitle);
-
-  const jobTitle = _create(
-    "span",
-    {},
-    { textContent: staticContent.common.title }
-  );
-  contentWrapper.appendChild(jobTitle);
-
-  //avatar
-  const avatarWrapper = _create("div");
-  avatarWrapper.classList.add("avatar_wrapper");
-  const avatarImg = _create("img", {
-    src: staticContent.common.avatar,
-  }) as HTMLImageElement;
-
-  avatarWrapper.appendChild(avatarImg);
-  bigTitleWrapper.appendChild(contentWrapper);
-  bigTitleWrapper.appendChild(avatarWrapper);
-  LandingPageWrapper.appendChild(bigTitleWrapper);
-
-  //about section
-  const aboutSection = _create("section");
-
-  const sectionTitle = _create(
-    "span",
-    { class: "section_title" },
-    { textContent: "About me" }
-  );
-
-  sectionTitle.textContent = "About me";
-  const aboutParagraph = _create(
-    "p",
-    { class: "about_paragraph" },
-    { textContent: staticContent.common.description }
-  );
-  aboutSection.appendChild(sectionTitle);
-  aboutSection.appendChild(aboutParagraph);
-  LandingPageWrapper.appendChild(aboutSection);
-
+  const pageWithHero = Hero({showAboutMe:true});
   // Project section
-  const projectSection = _create("section");
-  projectSection.classList.add("section");
-  projectSection.id = "project";
-  const projectSectionTitle = _create("span");
-  projectSectionTitle.classList.add("section_title");
-  projectSectionTitle.textContent = "Project";
+  const projectSection = _create("section",{
+    class : "section",
+    id: "project"
+  });
+  const projectSectionTitle = _create("span",{
+    class : "section_title"
+  },{
+    textContent : "Project"
+  });
+
   projectSection.appendChild(projectSectionTitle);
-  const projectList = _create("div");
-  projectList.classList.add("project_list");
+  const projectList = _create("div",{class: "project_list"});
+
   projects.forEach((project) => {
     projectList.appendChild(ProjectCard(project));
   });
+
   projectSection.appendChild(projectList);
-  LandingPageWrapper.appendChild(projectSection);
+  pageWithHero.appendChild(projectSection);
 
   //Blog  section
-  const blockSection = _create("section");
-  blockSection.classList.add("section");
+  const blockSection = _create("section",{
+    class: "section",
+    id : "blog"
+  },{
+
+  });
   blockSection.style.paddingTop = "2rem";
-  blockSection.id = "blog";
-  const blockSectionTitle = _create("span");
-  blockSectionTitle.classList.add("section_title");
-  blockSectionTitle.textContent = "Blog";
-  const blogSectionHeader = _create("div");
-  blogSectionHeader.classList.add("section_header");
+  const blockSectionTitle = _create("span",{
+    class : "section_title"
+  },{
+    textContent: "Blogs"
+  });
+
+  const blogSectionHeader = _create("div",{
+    class: "section_header"
+  });
+  
   const seeAllButton = _create("button");
   seeAllButton.classList.add("see_all_button");
   seeAllButton.textContent = "See All";
@@ -134,7 +85,7 @@ const LandingPage: () => void = async () => {
   blogs?.forEach((blog: any) => {
     blogList.appendChild(BlogCard(blog));
   });
-  LandingPageWrapper.appendChild(blockSection);
+  pageWithHero.appendChild(blockSection);
   //Social Media section
   const mediaSection = _create("section", { class: "section" });
   const mediaSectionTitle = _create(
@@ -161,10 +112,10 @@ const LandingPage: () => void = async () => {
   mediaList.forEach((media) => {
     mediaSection.appendChild(MediaTag(media));
   });
-  LandingPageWrapper.appendChild(mediaSection);
+  pageWithHero.appendChild(mediaSection);
   
   window.$emit("load_model");
   closeLoading?.();
-  return LandingPageWrapper;
+  return pageWithHero;
 };
 export default LandingPage;

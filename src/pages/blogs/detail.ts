@@ -7,7 +7,7 @@ const BlogDetailPage = (blog: any)=>{
     // const LandingPageWrapper = document.createElement("div");
   
     // const path = window.location.pathname;
-    render(DetailLayout({name : "Phong",blog}),'#app')
+    render(DetailLayout({blog}),'#app')
     // return ""
 }
 export default BlogDetailPage;

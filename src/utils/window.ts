@@ -21,4 +21,11 @@ declare global {
       }
     }
   };
+  window.indexedDB.open('PersistBlogs');
+  
+  window.addEventListener('beforeunload',(e)=>{
+    e.preventDefault();
+    window.indexedDB.deleteDatabase("PersistBlogs");
+    sessionStorage.removeItem('PersistBlogs');
+  })  
   
