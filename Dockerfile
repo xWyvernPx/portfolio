@@ -8,11 +8,14 @@ COPY server/package.json ./server
 RUN yarn install-all
 
 COPY . .
+
 RUN yarn build
+
 EXPOSE 3173
 EXPOSE 3000
 
 ENTRYPOINT [ "yarn", "prod" ]
+
 
 
 
