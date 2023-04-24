@@ -1,16 +1,18 @@
 FROM node:18
 
 WORKDIR /root/app
+COPY *.json ./
 
-COPY package.json .
-COPY server/package.json ./server
-
-RUN yarn install-all
-
+RUN yarn install
+RUN npm i -g typescript
 COPY . .
 
 RUN yarn build
 
+COPY server/*.json ./server/
+
+RUN yarn install-server
+RUN npm i -g serve
 EXPOSE 3173
 EXPOSE 3000
 

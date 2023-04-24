@@ -12,8 +12,8 @@
     "preview": "vite preview",
     "install-server"  : "yarn --cwd ./server install",
     "prod_ui" : "serve -s dist --single -p 2506 & ",
-    "prod_server" : "node server/server.js & ",
-    "prod" : "yarn prod_ui & prod_server"
+    "prod_server" : "node server/server.js ",
+    "prod" : "yarn prod_ui & yarn prod_server"
   },
   "devDependencies": {
     "@types/node": "^18.7.16",
