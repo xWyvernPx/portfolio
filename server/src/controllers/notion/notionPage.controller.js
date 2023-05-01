@@ -23,7 +23,7 @@ const NotionPageController = {
             {
               "property" : "Show on portfolio",
               "select" : {
-                "does_not_equal" : "Not Show"
+                "equals" : "Public"
               }
             }
           ],
