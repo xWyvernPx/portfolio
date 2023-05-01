@@ -123,10 +123,14 @@ window.addEventListener("popstate", async () => {
   // Get the current URL
 
   const url = window.location.pathname;
+  clearElement(app)
+  app.innerHTML = "";
+
   if (window.location.pathname.includes("#")) {
   } else {
     // Call the corresponding function for the current route
-    // app.innerHTML = "";
+    console.log("ROUTE WITH EVENT");
+    
     clearElement(app)
     const route = findRoute(url);
     if (route) {
@@ -139,6 +143,8 @@ window.addEventListener("popstate", async () => {
       } else {
         const content = await component();
         if (content !== undefined) {
+          // clearElement(app)
+
           app.appendChild(content);
         }        
       }

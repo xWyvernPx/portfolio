@@ -75,7 +75,7 @@ const BlogPage = async () => {
   pageWithHero.appendChild(BlogListPagination({
     loadMoreHanler : getListHandler
   }))
-  app.appendChild(pageWithHero)
+  // app.appendChild(pageWithHero)
   return pageWithHero;
 };
 
