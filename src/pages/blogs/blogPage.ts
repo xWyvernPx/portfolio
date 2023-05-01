@@ -11,7 +11,7 @@ const limit = 9;
 let next_cursor = undefined;
 let hasNext = false;
 const BlogPage = async () => {
-  const app = document.querySelector("#app");
+  // const app = document.querySelector("#app");
   const pageWithHero = Hero({showAboutMe:false});
   
   
