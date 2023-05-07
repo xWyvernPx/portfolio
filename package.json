@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "type": "module",
   "homepage": ".",
-  "proxy": "http://localhost:4422",
   "scripts": {
     "install-all" : "yarn install & npm run install-server",
     "dev": "vite --port 3173",
@@ -13,7 +12,9 @@
     "install-server"  : "yarn --cwd ./server install",
     "prod_ui" : "serve -s dist --single -p 2506 & ",
     "prod_server" : "node server/server.js ",
-    "prod" : "yarn prod_ui & yarn prod_server"
+    "prod" : "yarn prod_ui & yarn prod_server",
+    "docker-build" : "./docker.sh",
+    "golive" : "/usr/bin/bash ./start.sh \"/home/admin/apps/deployments/portfolio/portfolio.prod.env\" \"/home/admin/apps/credentials/docker.env\""
   },
   "devDependencies": {
     "@types/node": "^18.7.16",
