@@ -13,7 +13,7 @@ const NotionPageController = {
     });
     try {
       const { next_cursor, limit } = req.query;
-
+      
       const pages = await notion.databases.query({
         database_id: process.env.DATABASE_ID,
         page_size: limit ? +limit : 25,
