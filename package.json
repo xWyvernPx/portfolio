@@ -5,16 +5,16 @@
   "type": "module",
   "homepage": ".",
   "scripts": {
-    "install-all" : "yarn install & npm run install-server",
+    "install-all": "yarn install & npm run install-server",
     "dev": "vite --port 3173",
     "build": "tsc && vite build --base=./ ",
     "preview": "vite preview",
-    "install-server"  : "yarn --cwd ./server install",
-    "prod_ui" : "serve -s dist --single -p 2506 & ",
-    "prod_server" : "node server/server.js ",
-    "prod" : "yarn prod_ui & yarn prod_server",
-    "docker-build" : "./docker.sh",
-    "golive" : "/usr/bin/bash ./start.sh \"/home/admin/apps/deployments/portfolio/portfolio.prod.env\" \"/home/admin/apps/credentials/docker.env\""
+    "install-server": "yarn --cwd ./server install",
+    "prod_ui": "serve -s dist --single -p 2506 & ",
+    "prod_server": "node server/server.js ",
+    "prod": "yarn prod_ui & yarn prod_server",
+    "docker-build": "./docker.sh",
+    "golive": "/usr/bin/bash ./start.sh \"/home/admin/apps/deployments/portfolio/portfolio.prod.env\" \"/home/admin/apps/credentials/docker.env\""
   },
   "devDependencies": {
     "@types/node": "^18.7.16",
@@ -28,7 +28,7 @@
     "@tabler/icons": "^1.83.1",
     "@types/codemirror": "^5.60.5",
     "@types/styled-components": "^5.1.26",
-    "axios": "^1.3.4",
+    "axios": "^1.5.0",
     "codemirror": "^6.0.1",
     "csstype": "^3.1.1",
     "eventemitter3": "^5.0.0",
@@ -38,9 +38,11 @@
     "react": "17",
     "react-dom": "17",
     "react-notion-x": "^6.16.0",
+    "react-router-dom": "^6.15.0",
+    "recoil": "^0.7.7",
     "sass": "^1.59.3",
     "showdown": "^2.1.0",
-    "styled-components": "^5.3.9",
+    "styled-components": "^5.3.11",
     "three": "^0.143.0",
     "toastify-js": "^1.12.0"
   }

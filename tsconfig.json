@@ -21,5 +21,5 @@
       "react": ["./node_modules/react/index.js"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "v2/src/routers"]
 }

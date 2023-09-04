@@ -6,9 +6,9 @@ const getToken = () => {
   return token ? JSON.parse(token) : "";
 };
 // const BASE_URL = "https://wyvernp-portfolio.azurewebsites.net";
-//const BASE_URL = "http://localhost:3000";
 // const BASE_URL = "https://localhost:7137";
-const BASE_URL = "https://server.wyvernp.tech";
+// const BASE_URL = "https://server.wyvernp.tech";
+const BASE_URL = "http://localhost:3000";
 const axiosClient = axios.create({
   baseURL: BASE_URL,
   // withCredentials: true,

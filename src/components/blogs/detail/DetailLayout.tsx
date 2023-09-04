@@ -7,9 +7,9 @@ import { goBack } from '../../../main'
 import 'react-notion-x/src/styles.css'
 import '../../../assets/style/notion_custom.css'
 // used for code syntax highlighting (optional)
-import 'prismjs/themes/prism-tomorrow.css'
+// import 'prismjs/themes/prism-tomorrow.css'
 // used for rendering equations (optional)
-import 'katex/dist/katex.min.css'
+// import 'katex/dist/katex.min.css'
 type Props = {
     blog: any
 }
@@ -42,9 +42,7 @@ const DetailLayout = ({blog}: Props) => {
     window.$on("change_theme",()=>{
         document.getElementById
     })
-    const mapPageUrl = (pageId) => {
-        return `/blogs/${pageId}`
-      }
+    const mapPageUrl = 
     return (
         <div>
 
@@ -54,7 +52,7 @@ const DetailLayout = ({blog}: Props) => {
             }}><i className="fas fa-chevron-left"></i>Back</BackButton>
             <div>Functions</div>
         </Headline>
-        {blog&&<NotionRenderer 
+        {blog && <NotionRenderer 
 
         defaultPageCover='https://source.unsplash.com/1200x300/?random'
         className={`${document.body.classList.contains('dark') ? 'dark-mode' : 'light-mode'} notion_custom`}
